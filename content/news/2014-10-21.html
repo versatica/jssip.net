@@ -1,0 +1,29 @@
+---
+title: "2014-10-21: JsSIP 0.4.0 Released"
+---
+
+h1. 2014-10-21: JsSIP 0.4.0 Released
+
+JsSIP version 0.4.0 has been released. This version includes several bug fixes, improvements and some API changes.
+
+Check the "list of changes":https://github.com/versatica/JsSIP/blob/aaebc0e04500ec84626b767e686230bfdff5e884/CHANGELOG.md in this release.
+
+
+h2. New features
+
+* Hold/unhold/mute/unmute API for @RTCSession@ along with new @hold@, @unhold@, @mute@ and @unmute@ events identifying which dialog party has performed such an action.
+** Yes, the SDP media direction attributes are inspected and mangled as required.
+* Can receive initial INVITE or in-dialog re-INVITE/UPDATE requests without SDP offer. JsSIP will send the SDP offer in the 200 OK and expect the SDP answer in the ACK.
+
+
+h2. Migrating from 0.3.x to 0.4.x
+
+Migrating from 0.3.x to 0.4.x requires changes in your application code:
+
+* @RTCSession@ class no longer emits @started@ event but now it emits two different events:
+** @accepted@:  200 SIP response has been received/sent.
+** @confirmed@:  The ACK for the 200 SIP response has been sent/received.
+
+* @UA.register()@ no longer accepts extra headers as argument. Instead get the @Registrator@ instance of your UA via @UA.registrator()@ and call @setExtraHeaders()@ or @setExtraContactParams()@ on it.
+
+

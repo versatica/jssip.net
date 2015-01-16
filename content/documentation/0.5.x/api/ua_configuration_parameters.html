@@ -1,0 +1,326 @@
+---
+title: UA Configuration Parameters
+version: "0.5.x"
+---
+
+h1. UA Configuration Parameters
+
+<%= my_lib_link_to "ua" %> requires a configuration object with mandatory and optional parameters. Example:
+
+CODE_BEGIN "javascript"
+var configuration = {
+  'ws_servers':         'ws://sip-ws.example.com',
+  'uri':                'sip:alice@example.com',
+  'password':           'superpassword'
+};
+
+var coolPhone = new JsSIP.UA(configuration);
+CODE_END
+
+Full list of configuration parameters below:
+
+* <%= link_to "Mandatory Parameters", "#section_mandatory" %>
+** <%= link_to "uri", "#parameter_uri" %>
+** <%= link_to "ws_servers", "#parameter_ws_servers" %>
+* <%= link_to "Optional Parameters", "#section_optional" %>
+** <%= link_to "authorization_user", "#parameter_authorization_user" %>
+** <%= link_to "connection_recovery_max_interval", "#parameter_connection_recovery_max_interval" %>
+** <%= link_to "connection_recovery_min_interval", "#parameter_connection_recovery_min_interval" %>
+** <%= link_to "display_name", "#parameter_display_name" %>
+** <%= link_to "hack_ip_in_contact", "#parameter_hack_ip_in_contact" %>
+** <%= link_to "hack_via_tcp", "#parameter_hack_via_tcp" %>
+** <%= link_to "hack_via_ws", "#parameter_hack_via_ws" %>
+** <%= link_to "instance_id", "#instance_id" %>
+** <%= link_to "log", "#log" %>
+** <%= link_to "no_answer_timeout", "#parameter_no_answer_timeout" %>
+** <%= link_to "node_ws_options", "#parameter_node_ws_options" %> *New!*
+** <%= link_to "password", "#parameter_password" %>
+** <%= link_to "register", "#parameter_register" %>
+** <%= link_to "register_expires", "#parameter_register_expires" %>
+** <%= link_to "registrar_server", "#parameter_registrar_server" %>
+** <%= link_to "stun_servers", "#parameter_stun_servers" %>
+** <%= link_to "trace_sip", "#parameter_trace_sip" %>
+** <%= link_to "turn_servers", "#parameter_turn_servers" %>
+** <%= link_to "use_preloaded_route", "#parameter_use_preloaded_route" %>
+
+
+
+h2(#section_madatory). Mandatory parameters
+
+
+h4(#parameter_uri). @uri@
+
+SIP URI associated to the User Agent (@String@). This is a SIP address given to you by your provider.
+
+CODE_BEGIN "javascript"
+uri: "sip:alice@example.com"
+CODE_END
+
+
+h4(#parameter_ws_servers). @ws_servers@
+
+Set of WebSocket URIs to connect to. If not specified ports 80 and 443 are taken for non secure WebSocket connections and connections over SSL/TLS, respectively. This parameter can be expressed in multiple ways:
+
+* Single @String@ to define a single WebSocket URI.
+* @Array@ of @Strings@ to define multiple WebSocket URIs.
+* @Array@ of @Objects@ to define multiple WebSocket URIs with weight. URIs with higher weight value are used prior to those with lower value.
+
+CODE_BEGIN "javascript"
+ws_servers: "ws://sip-ws.example.com"
+CODE_END
+
+CODE_BEGIN "javascript"
+ws_servers: "wss://sip-ws.example.com:8443/sip?KEY=1234"
+CODE_END
+
+CODE_BEGIN "javascript"
+ws_servers: [
+  "ws://sip-ws-1.example.com",
+  "ws://sip-ws-2.example.com",
+]
+CODE_END
+
+CODE_BEGIN "javascript"
+ws_servers: [
+  {ws_uri: "ws://sip-ws-1.example.com", weight: 10},
+  {ws_uri: "ws://sip-ws-2.example.com", weight: 1}
+]
+CODE_END
+
+
+h2(#section_optional). Optional parameters
+
+
+
+h4(#parameter_authorization_user). @authorization_user@
+
+Username (@String@) to use when generating authentication credentials. If not defined the value in @uri@ parameter is used.
+
+CODE_BEGIN "javascript"
+authorization_user: "alice123"
+CODE_END
+
+
+h4(#parameter_connection_recovery_max_interval). @connection_recovery_max_interval@
+
+Maximum interval (@Number@) in seconds between WebSocket reconnection attemps. Default value is @30@.
+
+CODE_BEGIN "javascript"
+connection_recovery_max_interval: 60
+CODE_END
+
+
+h4(#parameter_connection_recovery_min_interval). @connection_recovery_min_interval@
+
+Minimum interval (@Number@) in seconds between WebSocket reconnection attempts. Default value is @2@.
+
+CODE_BEGIN "javascript"
+connection_recovery_min_interval: 4
+CODE_END
+
+
+h4(#parameter_display_name). @display_name@
+
+Descriptive name (@String@) to be shown to the called party when calling or sending IM messages. It must NOT be enclosed between double quotes even if the given name contains multi-byte symbols (JsSIP will always enclose the @display_name@ value between double quotes).
+
+CODE_BEGIN "javascript"
+display_name: "Alice ¶€ĸøĸø"
+CODE_END
+
+
+h4(#parameter_hack_ip_in_contact). @hack_ip_in_contact@
+
+Set a random IP address as the host value in the Contact header field and Via sent-by parameter. Useful for SIP registrars not allowing domain names in the Contact URI. Valid values are @true@ and @false@ (@Boolean@). Default value is a @false@.
+
+CODE_BEGIN "javascript"
+hack_ip_in_contact: true
+CODE_END
+
+
+h4(#parameter_hack_via_tcp). @hack_via_tcp@
+
+Set Via transport parameter in outgoing SIP requests to "TCP". Useful when traversing SIP nodes that are not ready to parse Via headers with "WS" or "WSS" value in a Via header. Valid values are @true@ and @false@ (@Boolean@). Default value is @false@.
+
+CODE_BEGIN "javascript"
+hack_via_tcp: true
+CODE_END
+
+
+h4(#parameter_hack_via_ws). @hack_via_ws@
+
+When connecting to a secure WebSocket server ("wss://") force "WS" as Via transport value instead of "WSS". Useful when traversing HTTP/WebSocket proxies that act as TLS tunnels. Valid values are @true@ and @false@ (@Boolean@). Default value is @false@.
+
+CODE_BEGIN "javascript"
+hack_via_ws: true
+CODE_END
+
+
+h4(#instance_id). @instance_id@
+
+@String@ indicating the UUID URI to be used as instance ID to identify the UA instance when using GRUU.
+
+CODE_BEGIN "javascript"
+instance_id: "uuid:8f1fa16a-1165-4a96-8341-785b1ef24f12"
+CODE_END
+
+CODE_BEGIN "javascript"
+instance_id: "8f1fa16a-1165-4a96-8341-785b1ef24f12"
+CODE_END
+
+
+h4(#log). @log@
+
+@Object@ providing the desired log behavior.
+
+*builtinEnabled*
+
+@Boolean@ indicating whether JsSIP should write log messages in the browser console. Default value is @true@.
+
+*level*
+
+@Number@ or @String@ indicating the verbose level of the JsSIP log. Valid values are @3@, @2@, @1@, @0@ or @"debug"@, @"log"@, @"warn"@, @"error"@ respectively. Default value is @2@ (or @log@).
+
+*connector*
+
+User defined @Function@ which will be called everytime a log is generated, according to the @enabled@ and @level@ options.
+
+The function is called with the following semantics:
+
+CODE_BEGIN
+/*
+  level: String representing the level of the log message ('debug', 'log', 'warn', 'error')
+  category: String representing the JsSIP instance class firing the log. ie: 'jssip.ua'
+  label: String indicating the 'identifier' of the class instance when the log level is '3' (debug). ie: transaction.id
+  content: String representing the log message
+*/
+connector(level, category, label, content);
+CODE_END
+
+
+
+h4(#parameter_no_answer_timeout). @no_answer_timeout@
+
+Time (in seconds) (@Integer@) after which an incoming call is rejected if not answered. Default value is @60@.
+
+CODE_BEGIN "javascript"
+no_answer_timeout: 120
+CODE_END
+
+
+h4(#parameter_node_ws_options). @node_ws_options@
+
+An (@Object@) with options for the "@WebSocket@":https://github.com/einaros/ws/blob/master/doc/ws.md#class-wswebsocket constructor of the Node @ws@ module.
+
+This parameter is just used when running JsSIP in Node.
+
+CODE_BEGIN "javascript"
+node_ws_options: {
+  origin: "http://myweb.com",
+}
+CODE_END
+
+
+h4(#parameter_password). @password@
+
+SIP Authentication password (@String@).
+
+CODE_BEGIN "javascript"
+password: "1234"
+CODE_END
+
+
+h4(#parameter_register). @register@
+
+Indicate if JsSIP User Agent should register automatically when starting. Valid values are @true@ and @false@ @(Boolean)@. Default value is @true@.
+
+CODE_BEGIN "javascript"
+register: false
+CODE_END
+
+
+h4(#parameter_register_expires). @register_expires@
+
+Registration expiry time (in seconds) @(Integer)@. Default value is @600@.
+
+CODE_BEGIN "javascript"
+register_expires: 300
+CODE_END
+
+
+h4(#parameter_registrar_server). @registrar_server@
+
+Set the SIP registrar URI. Valid value is a SIP URI without username. Default value is @null@ which means that the registrar URI is taken from the @uri@ parameter (by removing the username).
+
+CODE_BEGIN "javascript"
+registrar_server: 'sip:registrar.mydomain.com'
+CODE_END
+
+
+h4(#parameter_stun_servers). @stun_servers@
+
+@String@ or @Array@ of @Strings@ indicating the STUN server(s) to use for IP address discovery. Values must include "stun:" or "stuns:" schema. Default value is @["stun:stun.l.google.com:19302"]@.
+
+CODE_BEGIN "javascript"
+stun_servers: "stun:example.org"
+CODE_END
+
+CODE_BEGIN "javascript"
+stun_servers: ["stun:example.org", "stuns:example.org"]
+CODE_END
+
+CODE_BEGIN "javascript"
+stun_servers: ["stun:example.org:8000"]
+CODE_END
+
+
+h4(#parameter_trace_sip). @trace_sip@
+
+Indicate whether incoming and outgoing SIP request/responses must be logged in the browser console (@Boolean@). Default value is @false@.
+
+CODE_BEGIN "javascript"
+trace_sip: true
+CODE_END
+
+
+h4(#parameter_turn_servers). @turn_servers@
+
+
+@Object@ or @Array@ of @Objects@ indicating the TURN server(s) and corresponding username and password to be used for media relay (in case no peer-to-peer media is possible). 'urls' (a @String@ or an @Array@ of @String@) can include "turn:" or "turns" schema. No TURN server is set by default.
+
+CODE_BEGIN "javascript"
+turn_servers: { urls:"turn:example.org", username:"turnuser", credential:"turnpassword"}
+CODE_END
+
+CODE_BEGIN "javascript"
+turn_servers: { urls:["turn:example.org", "turn:example2.org"], username:"turnuser", credential:"turnpassword"}
+CODE_END
+
+CODE_BEGIN "javascript"
+turn_servers: [{ urls:"turn:example.org", username:"turnuser", credential:"turnpassword"}]
+CODE_END
+
+CODE_BEGIN "javascript"
+turn_servers: [
+  { urls:"turn:example.org", username:"turnuser", credential:"turnpassword" },
+  { urls:"turn:example.org?transport=udp", username:"turnuser2", credential:"turnpassword2"}
+]
+CODE_END
+
+
+h4(#parameter_use_preloaded_route). @use_preloaded_route@
+
+If set to @true@ every SIP initial request sent by JsSIP includes a Route header with the SIP URI associated to the WebSocket server as value. Some SIP Outbound Proxies require such a header. Valid values are @true@ and @false@ @(Boolean)@. Default value is @false@.
+
+CODE_BEGIN "javascript"
+ws_servers: "ws://example.org/sip-ws"
+use_preloaded_route: true
+CODE_END
+
+The Route header will look like <code>Route: <sip:example.org;lr;transport=ws></code>
+
+CODE_BEGIN "javascript"
+ws_servers: "wss://example.org:8443"
+use_preloaded_route: true
+CODE_END
+
+The Route header will look like <code>Route: <sip:example.org:8443;lr;transport=ws></code>

@@ -1,0 +1,56 @@
+---
+title: F.A.Q.
+---
+
+h1. F.A.Q. (Frequently Asked Questions)
+
+The F.A.Q. will be improved and completed soon.
+
+
+
+h2. What is JsSIP?
+
+JsSIP is a client side pure JavaScript library to build SIP endpoints in Web environments.
+
+
+
+h2. What can I do with JsSIP?
+
+You can build a complete SIP user agent in your Web page:
+
+* Send and/or receive multimedia calls.
+* Send and/or receive text messages.
+
+
+
+h2. Can I use JsSIP from any web browser?
+
+See the <%= my_lib_link_to "/documentation/misc/interoperability" %> section.
+
+
+
+h2. What do I need to run a JsSIP environment?
+
+JsSIP is a SIP WebSocket client. It needs a SIP WebSocket capable server to which connect and exchange SIP messages.
+
+
+
+h2. Can I connect a JsSIP client directly to my existing SIP server?
+
+Yes, if it supports SIP over WebSocket. See the <%= my_lib_link_to "/documentation/misc/interoperability" %> section.
+
+
+
+
+h2. What if my existing SIP server lacks SIP WebSocket Server capabilities?
+
+You can put an "OverSIP":http://oversip.net SIP WebSocket Proxy in front of your existing SIP server.
+
+* Your SIP server/registrar must implement Path mechanism (<%= link_to "RFC 3327", "http://tools.ietf.org/html/rfc3327" %>).
+* If not (for example Asterisk which does not support Path), use OverSIP's "OutboundMangling":http://www.oversip.net/documentation/1.3.x/api/built_in_modules/outbound_mangling/ module.
+
+
+
+h2. Asterisk rejects REGISTER from JsSIP
+
+Asterisk does not like a SIP REGISTER whose Contact header contains an URI with "xxxxx.invalid" domain (see the related "issue":https://issues.asterisk.org/jira/browse/ASTERISK-19716). If you use Asterisk as registrar enable the UA configuration option <%= my_lib_link_to "/documentation/_JSSIP_LAST_VERSION_/api/ua_configuration_parameters/#hack_ip_in_contact", :text=>"hack_ip_in_contact" %>.

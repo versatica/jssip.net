@@ -1,0 +1,24 @@
+---
+title: Interoperability
+---
+
+h1. Interoperability
+
+
+h2. SIP proxies/servers
+
+JsSIP uses the <%= my_lib_link_to "/documentation/misc/sip_websocket" %> transport for sending an receiving SIP requests and responses, and thus, it requires a SIP proxy/server with WebSocket support. Currently the following SIP servers have been tested:
+
+* <%= my_lib_link_to "interoperability/oversip" %>
+* <%= my_lib_link_to "interoperability/kamailio" %>
+* <%= my_lib_link_to "interoperability/asterisk" %>
+* <%= my_lib_link_to "interoperability/officesip" %>
+* <%= my_lib_link_to "interoperability/resiprocate" %>
+* <%= my_lib_link_to "interoperability/frafos" %>
+
+
+h2. WebRTC Web browsers
+
+At media plane (audio calls), JsSIP version 0.2.0 works with Chrome browser from version 24.
+
+At signaling plane (SIP protocol), JsSIP runs in any WebSocket capable browser. Here a <%= link_to "list", "http://caniuse.com/websockets"%> of WebSocket support in Web browsers.

@@ -1,0 +1,80 @@
+---
+title: Upgrading from 0.2.x
+version: "0.3.x"
+---
+
+h1. Upgrading from 0.2.x
+
+One of the most significant changes from 0.2.x version is that HTML5 video elements are not handled by JsSIP anymore. Instead, media stream handling tools are facilitated so you can freely decide when and where to attach the local and remote media Streams. For more info see <%= my_lib_link_to "/documentation/0.3.x/api/session" %>.
+
+This version comes with a new concept of optional arguments, meaning that every argument in API methods wich are not mandatory, are enclosed in a JavaScript @Object@ as the last method argument. The name of this argument is 'options'.
+
+The following changes must be taken into consideration when upgrading from 0.2.x to 0.3.x version.
+
+
+
+h2. UA Class
+
+
+h3(#ua_configuration_params). <%= my_lib_api_method 'Configuration Parameters' %>
+
+* @outgoing_proxy_set@ renamed to @ws_servers@.
+* @stun_server@ renamed to @stun_servers@.
+
+
+
+h3(#ua_method_call). <%= my_lib_api_method 'call()' %>
+
+* Optional arguments are passed through the new 'options' argument.
+* HTML5 video element references are not passed anymore.
+* @mediaTypes@ changed to @mediaConstraints@.
+
+<%= my_lib_link_to "/documentation/0.3.x/api/ua/#method_call" , :text=>"API 0.3.x" %> | <%= my_lib_link_to "/documentation/0.2.x/api/ua/#method_call" , :text=>"API 0.2.x" %>
+
+
+
+h3(#ua_method_message). <%= my_lib_api_method 'sendMessage()' %>
+
+* Optional arguments are passed through the new 'options' argument.
+
+<%= my_lib_link_to "/documentation/0.3.x/api/ua/#method_message" , :text=>"API 0.3.x" %> | <%= my_lib_link_to "/documentation/0.2.x/api/ua/#method_message" , :text=>"API 0.2.x" %>
+
+
+
+h2. RTCSession Class
+
+This is the new name for the old @Session@ Class.
+
+h3(#rtcsession_properties). <%= my_lib_api_method 'Instance Properties' %>
+
+*  @local_identity@ changed from @String@ to <%= my_lib_link_to "/documentation/0.3.x/api/nameAddrHeader" %> instance.
+*  @remote_identity@ changed from @String@ to <%= my_lib_link_to "/documentation/0.3.x/api/nameAddrHeader" %> instance.
+
+
+h3(#rtcsession_answer). <%= my_lib_api_method 'answer()' %>
+
+* Optional arguments are passed through the new 'options' argument.
+* HTML5 video element references are not passed anymore.
+
+<%= my_lib_link_to "/documentation/0.3.x/api/session/#method_answer" , :text=>"API 0.3.x" %> | <%= my_lib_link_to "/documentation/0.2.x/api/session/#method_answer" , :text=>"API 0.2.x" %>
+
+
+
+h3(#rtcsession_terminate). <%= my_lib_api_method 'terminate()' %>
+
+* Optional arguments are passed through the new 'options' argument.
+
+<%= my_lib_link_to "/documentation/0.3.x/api/session/#method_terminate" , :text=>"API 0.3.x" %> | <%= my_lib_link_to "/documentation/0.2.x/api/session/#method_terminate" , :text=>"API 0.2.x" %>
+
+
+
+h3(#rtcsession_cancel). <%= my_lib_api_method 'cancel()' %>
+
+* Dissapears in favour of @terminate()@.
+
+
+
+h3(#rtcsession_reject). <%= my_lib_api_method 'reject()' %>
+
+* Dissapears in favour of @terminate()@.
+

@@ -1,0 +1,200 @@
+div.breadcrumbs > h1 {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #B72851;
+}
+
+div.breadcrumbs.top > h1 {
+  margin-top: -10px;   /* To undo the parent div padding-top=30px. */
+  margin-bottom: 20px;
+}
+
+div.breadcrumbs.bottom > h1 {
+  margin-bottom: -10px;   /* To undo the parent div padding-top=30px. */
+  margin-top: 20px;
+}
+
+div.content {
+  background: #FFF;
+  padding: 30px 30px 30px 50px;
+  font-family: verdana,"Bitstream Vera Sans", helvetica, sans-serif;
+  font-size: 0.80em;
+  color: #222;
+  border: 1px #888 solid;
+  /* min-height: 200px; */
+}
+
+div.content h1 {
+  margin: 0 0 1.5em -30px;
+  font-size: 1.45em;
+  font-weight: normal;
+  color: #E13164;
+}
+
+div.content h2 {
+  margin: 2.5em 0 1em -25px;
+  font-size: 1.30em;
+  font-weight: normal;
+  color: #333;
+  padding-bottom: 4px;
+  border-width: 0 0 1px 0;
+  border-style: dotted;
+  border-color: #BBB;
+}
+
+div.content h3 {
+  margin: 2.5em 0 1em -10px;
+  font-size: 1.20em;
+  font-weight: normal;
+  color: #555;
+  padding-bottom: 4px;
+  border-width: 0 0 1px 0;
+  border-style: dotted;
+  border-color: #DDD;
+}
+
+div.content h4 {
+  margin: 1.5em 0 1em -5px;
+  font-size: 1.10em;
+  font-weight: normal;
+  color: #666;
+}
+
+div.content div,
+div.content p,
+div.content ul,
+div.content li,
+div.content dd
+{
+  font-size: 1em;
+  /* TODO: yes or not?
+  text-align: justify; */
+  margin: 0.7em 0;
+  line-height: 1.5em;
+}
+
+div.content ul li {
+  background: url("/images/list-bullet-1.png") 2px 0.39em no-repeat;
+  padding-left: 1.5em;
+  list-style: none;
+}
+div.content ul li ul,
+div.content ul li ul li {
+  margin: 0.3em 0;
+  background: url("/images/list-bullet-2.png") 2px 0.39em no-repeat;
+}
+
+/* NOTE: Avoid overiding Highlight or CodeRay CSS.
+ * Some doc:
+ * - http://reference.sitepoint.com/css/pseudoclass-not
+ * - http://www.quirksmode.org/css/not.html
+ */
+div.content :not(pre) > code {
+  font-size: 1.2em;
+  color: #5B434E;
+  background: #FDF4FC;
+}
+
+div.content h1 code,
+div.content h2 code,
+div.content h3 code,
+div.content h4 code
+{
+  font-size: 1.20em;
+  font-weight: bold;
+  color: #5C677B;
+  background: none;
+}
+div.content h1 code.normal,
+div.content h2 code.normal,
+div.content h3 code.normal,
+div.content h4 code.normal
+{
+  font-weight: normal;
+}
+
+div.content a,
+div.content a code {
+  color: #E13164;
+  border-color: #E13164;
+  border-width: 0 0 1px 0;
+  border-style: dotted;
+}
+div.content a:hover,
+div.content a:focus,
+div.content a:hover code,
+div.content a:focus code {
+  color: #F63194;
+  border-color: #F63194;
+}
+
+/* CSS for Highlight. */
+div.content pre > code {
+  font-size: 1.25em;
+  overflow: auto;
+}
+
+
+/* Tables */
+div.content table {
+  border-collapse:collapse;
+}
+
+div.content th {
+  border: 2px solid #FFF;
+  padding: 1em;
+  background: #E13164;
+  color: #FFF;
+}
+
+div.content td {
+  border: 2px solid #FFF;
+  padding: 0.5em;
+  background: #EEE;
+}
+
+div.content a.img {
+  display: block;
+  border: none;
+  margin: 20px 0;
+}
+div.content a.img > img.in-content {
+  display: block;
+  border: 2px solid #AAA;
+}
+div.content a.img > img.in-content:hover {
+  border-color: #E13164;
+}
+
+
+
+/******************* img.gravatar **************/
+div.content img.gravatar {
+  border-radius: 4px;
+}
+
+
+/******************* API ****************/
+div.content dl.api.params {
+}
+
+div.content dl.api.params dt {
+  float: left;
+  clear: both;
+  width: 200px;
+  padding: 2px 0;
+  background: #E13164;
+  font-weight: bold;
+  text-align: center;
+}
+
+div.content dl.api dt code {
+  background: none;
+  font-weight: normal;
+  color: #FFF;
+}
+
+div.content dl.api dd {
+  display: block;
+  margin-left: 210px;
+}

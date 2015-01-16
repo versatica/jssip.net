@@ -1,0 +1,116 @@
+---
+title: the Javascript SIP library
+---
+
+<div class="horizontal-1">
+
+  <div class="feature-list">
+    <h1>JsSIP: The JavaScript SIP Library</h1>
+    <ul>
+      <li>Runs in the browser and Node.js</li>
+      <li>SIP over <%= my_lib_link_to "/documentation/misc/sip_websocket/", :text=>"WebSocket" %> (use real SIP in your web apps)</li>
+      <li>Audio/video calls (<%= my_lib_link_to "/documentation/misc/webrtc/" %>) and instant messaging</li>
+      <li>Lightweight!</li>
+      <li>100% pure JavaScript built from the ground up</li>
+      <li>Easy to use and powerful user API</li>
+      <li>Works with OverSIP, Kamailio, Asterisk, OfficeSIP and more (<%= my_lib_link_to "/documentation/misc/interoperability", :text=>"more info" %>)</li>
+      <li>Written by the authors of <%= link_to "RFC 7118", "https://tools.ietf.org/html/rfc7118" %> and <%= link_to "OverSIP", "http://www.oversip.net" %></li>
+    </ul>
+    <div class="link-features">
+      <%= link_to "[ overview ]", "/documentation/_JSSIP_LAST_VERSION_/overview/" %>
+    </div>
+  </div>
+
+  <div class="boxes">
+    <div class="download">
+      <a class="icon" href="/download/"></a>
+      <div class="text">
+        <a class="title" href="/download/">Get It Now</a>
+        <a class="info" href="/download/">JsSIP v_JSSIP_LAST_FULL_VERSION_</a>
+      </div>
+    </div>
+
+    <div class="logos">
+      <a class="github" href="https://github.com/versatica/JsSIP"></a>
+      <a class="license" href="/license/"></a>
+    </div>
+
+    <!-- <div class="twitter-button">
+      <a href="https://twitter.com/versatica" class="twitter-follow-button"
+         data-show-count="false" data-size="large" data-align="right">Follow @versatica</a>
+    </div>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ -->
+    <!--
+    <div class="section">
+      <h1>Resources</h1>
+      <ul>
+        <li><%= my_lib_link_to "/resources/who_uses_jssip" %></li>
+      </ul>
+    </div>
+    -->
+
+  </div>
+
+  <div class="spacer"></div>
+
+</div>  <!-- .horizontal-1 -->
+
+<div class="vertical-spacer"></div>
+
+<div class="horizontal-2">
+
+  <div class="column first">
+    <h1>SIP over WebSocket</h1>
+    <div class="body">
+      <p>JsSIP implements the <a href="https://tools.ietf.org/html/rfc7118">SIP WebSocket transport</a>. Enjoy the real integration of SIP within the Web and communicate with SIP networks out there.</p>
+      <p>This is pure SIP on the web (no protocol conversion, no limits).</p>
+      <div class="more-info">
+        <%= my_lib_link_to "/documentation/misc/sip_websocket/", :text=>"[ more info ]" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <h1>WebRTC</h1>
+    <div class="body">
+      <p>JsSIP makes use of the <%= my_lib_link_to "/documentation/misc/webrtc/" %> stack present in modern web browsers for enabling audio/video realtime communication.</p>
+      <p>Zero plugins, zero vendor lock-in. Bye bye Flash and Java Applets!</p>
+      <div class="more-info">
+        <%= my_lib_link_to "/documentation/misc/webrtc/", :text=>"[ more info ]" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <h1>Easy to use</h1>
+    <div class="body">
+      <p>JsSIP comes with an easy JavaScript <%= my_lib_link_to "/documentation/_JSSIP_LAST_VERSION_/api/" %> that provides the user with full flexibility over the SIP application running in the web.</p>
+      <p>Enjoy coding the custom SIP logic for your web application.</p>
+      <div class="more-info">
+        <%= my_lib_link_to "/documentation/_JSSIP_LAST_VERSION_/getting_started/", :text=>"[ more info ]" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column community">
+    <h1>Community</h1>
+    <div class="body">
+      <p>JsSIP is licensed under the <%= link_to "MIT License", "/license/" %>. Join our community!</p>
+      <ul>
+        <li><%= link_to "Contribute", "/contribute/" %></li>
+        <li><%= link_to "Source code", "https://github.com/versatica/JsSIP" %></li>
+        <li><%= link_to "Issues", "https://github.com/versatica/JsSIP/issues" %></li>
+        <li><%= link_to "Changelog", "https://github.com/versatica/JsSIP/blob/master/CHANGELOG.md" %></li>
+        <li><%= link_to "Mailing list", "https://groups.google.com/group/jssip" %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="footer-note">
+    <p>JsSIP is an open source community project supported by its members on a best effort basis. Any questions or comments can be posted on the <%= link_to "mailing list", "https://groups.google.com/group/jssip" %>.</p>
+  </div>
+
+</div>  <!-- .horizontal-2 -->

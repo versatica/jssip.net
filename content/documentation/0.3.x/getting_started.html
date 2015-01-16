@@ -1,0 +1,159 @@
+---
+title: Getting Started
+version: "0.3.x"
+---
+
+h1. Getting Started
+
+JsSIP User Agent is the core element in JsSIP. It represents the SIP client associated to a SIP account. JsSIP User Agent is defined in <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/", :text=>"@JsSIP.UA@" %> class.
+
+Multiple JsSIP User Agents can be created (this is useful for having different SIP accounts running in the same web application).
+
+
+h2. Creating a JsSIP User Agent
+
+
+h3. User Agent Configuration
+
+JsSIP User Agent requires a configuration object for its initialization. There are some mandatory configuration parameters and many optional ones. Check the full <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua_configuration_parameters/", :text=>"configuration parameters" %> list.
+
+
+CODE_BEGIN "javascript"
+var configuration = {
+  'ws_servers': 'ws://sip-ws.example.com',
+  'uri': 'sip:alice@example.com',
+  'password': 'superpassword'
+};
+CODE_END
+
+
+h3. User Agent instance
+
+CODE_BEGIN "javascript"
+var coolPhone = new JsSIP.UA(configuration);
+CODE_END
+
+
+h2. User Agent events definition
+
+Full list of User Agent <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/#section_events", :text=>"events" %>.
+
+
+h3. WebSocket connection events
+
+CODE_BEGIN "javascript"
+coolPhone.on('connected', function(e){ /* Your code here */ });
+
+coolPhone.on('disconnected', function(e){ /* Your code here */ });
+CODE_END
+
+
+h3. New incoming or outgoing call event
+
+CODE_BEGIN "javascript"
+coolPhone.on('newRTCSession', function(e){ /* Your code here */ });
+CODE_END
+
+
+h3. New incoming or outgoing IM message event
+
+CODE_BEGIN "javascript"
+coolPhone.on('newMessage', function(e){ /* Your code here */ });
+CODE_END
+
+
+h3. SIP registration events
+
+CODE_BEGIN "javascript"
+coolPhone.on('registered', function(e){ /* Your code here */ });
+coolPhone.on('unregistered', function(e){ /* Your code here */ });
+coolPhone.on('registrationFailed', function(e){ /* Your code here */ });
+CODE_END
+
+
+h2. Starting the User Agent
+
+See <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/#method_start", :text=>"JsSIP.UA.start()" %> method definition.
+
+CODE_BEGIN "javascript"
+coolPhone.start();
+CODE_END
+
+
+h2. Making outbound calls
+
+See <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/#method_call", :text=>"JsSIP.UA.call()" %> method definition.
+
+h4. Example
+
+CODE_BEGIN "javascript"
+/* HTML5 <video> elements in which local and remote video will be displayed
+ * NOTE: set the 'autoplay' attribute in the video elements if you want the streams
+ * to be displayed and stopped automatically:
+ * ie: <video id="remoteView" autoplay hidden=true></video>
+ */
+var selfView =   document.getElementById('my-video');
+var remoteView =  document.getElementById('peer-video');
+
+// Register callbacks to desired call events
+var eventHandlers = {
+  'progress':   function(e){ /* Your code here */ },
+  'failed':     function(e){ /* Your code here */ },
+  'started':    function(e){
+    var rtcSession = e.sender;
+
+    // Attach local stream to selfView
+    if (rtcSession.getLocalStreams().length > 0) {
+      selfView.src = window.URL.createObjectURL(rtcSession.getLocalStreams()[0]);
+    }
+
+    // Attach remote stream to remoteView
+    if (rtcSession.getRemoteStreams().length > 0) {
+      remoteView.src = window.URL.createObjectURL(rtcSession.getRemoteStreams()[0]);
+    }
+  },
+  'ended':      function(e){ /* Your code here */ }
+};
+
+var options = {
+  'eventHandlers': eventHandlers,
+  'extraHeaders': [ 'X-Foo: foo', 'X-Bar: bar' ],
+  'mediaConstraints': {'audio': true, 'video': true}
+};
+
+coolPhone.call('sip:bob@example.com', options);
+CODE_END
+
+
+h2. Instant messaging
+
+See <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/#method_message", :text=>"JsSIP.UA.sendMessage()" %> method definition.
+
+
+h4. Example 1
+
+CODE_BEGIN "javascript"
+var text = 'Hello Bob!';
+
+coolPhone.sendMessage('sip:bob@example.com', text);
+CODE_END
+
+
+
+h4. Example 2
+
+CODE_BEGIN "javascript"
+var text = 'Hello Bob!';
+
+// Register callbacks to desired message events
+var eventHandlers = {
+  'succeeded': function(e){ /* Your code here */ },
+  'failed':    function(e){ /* Your code here */ };
+};
+
+var options = {
+  'eventHandlers': eventHandlers
+};
+
+coolPhone.sendMessage('sip:bob@example.com', text, options);
+CODE_END

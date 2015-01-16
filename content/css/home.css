@@ -1,0 +1,359 @@
+/******************* horizontal-1 *************/
+
+div.home div.horizontal-1 {
+  position: relative;
+}
+
+div.home div.horizontal-1 div.feature-list {
+  float: left;
+  width: 596px;
+  background: #D6D4D6;
+  padding: 20px;
+  border: 1px solid #FFF;
+  line-height: 1.3em;
+}
+
+div.home div.horizontal-1 div.feature-list h1 {
+  font-size: 1.2em;
+  color: #E13164;  /* TITULOS */
+  margin-bottom: 20px;
+/*  text-shadow: #555 0px 2px 6px; */
+}
+
+div.home div.horizontal-1 div.feature-list ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+div.home div.horizontal-1 div.feature-list ul li {
+  background-image: url("/images/ok.png");
+  background-repeat: no-repeat;
+  background-position: 0px;
+  padding-left: 28px;
+  min-height: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #444;
+  margin-top: 15px;
+}
+
+div.home div.horizontal-1 div.feature-list a {
+  text-decoration: underline;
+}
+
+div.home div.horizontal-1 div.feature-list div.link-features {
+  text-align: center;
+  padding-top: 15px;
+}
+
+div.home div.horizontal-1 div.feature-list div.link-features > a {
+  color: #E13164;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: none;
+}
+
+div.home div.horizontal-1 div.feature-list div.link-features > a:hover {
+  color: #FF65A3;
+}
+
+
+div.home div.horizontal-1 div.boxes {
+  float: left;
+  position: relative;
+  width: 272px;
+  margin-left: 30px;
+}
+
+div.home div.horizontal-1 div.boxes div.download {
+  width: 270px;
+  height: 100px;
+  background: url("/images/download-button-bg.png") repeat-x;
+  border-radius: 10px;
+  border: 1px solid #666;
+}
+
+div.home div.horizontal-1 div.boxes div.download:hover {
+  background-color: #FFF;
+}
+
+div.home div.horizontal-1 div.boxes div.download a.icon {
+  display: block;
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  background: 6px center url("/images/download.png") no-repeat;
+}
+
+div.home div.horizontal-1 div.boxes div.download div.text {
+  position: absolute;
+  right: 6px;
+  top: 0;
+  width: 176px;
+}
+
+div.home div.horizontal-1 div.boxes div.download a.title {
+  display: block;
+  text-align: center;
+  line-height: 75px;
+  height: 50px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #FFF;
+  text-shadow: #FFF 0px 0px 6px;
+  text-decoration: none;
+}
+
+div.home div.horizontal-1 div.boxes div.download a.info {
+  display: block;
+  text-align: center;
+  line-height: 30px;
+  height: 50px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #EEE;
+  text-shadow: #FFF 0px 0px 6px;
+  text-decoration: none;
+}
+
+div.home div.horizontal-1 div.boxes div.logos {
+  position: relative;
+  width: 270px;
+  height: 55px;
+  padding: 10px 0 6px 0;
+  background: #C7C0BF;
+  border-radius: 10px;
+  border: 1px solid #666;
+  margin-top: 15px;
+}
+
+div.home div.horizontal-1 div.boxes div.logos a {
+  display: block;
+  position: relative;
+  float: left;
+  height: 50px;
+}
+
+div.home div.horizontal-1 div.boxes div.logos a.github {
+  background: center url("/images/logo-github.png") no-repeat;
+  left: 15px;
+  width: 110px;
+}
+
+div.home div.horizontal-1 div.boxes div.logos a.license {
+  background: center bottom url("/images/logo-license-mit.png") no-repeat;
+  left: 35px;
+  width: 115px;
+}
+
+div.home div.horizontal-1 div.boxes div.twitter-button {
+  margin-top: 15px;
+  text-align:center;
+}
+
+
+div.home div.section {
+  position: relative;
+  margin-top: 20px;
+  width: 270px;
+}
+
+div.home div.section h1 {
+  font-size: 0.9em;
+  line-height: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #FFF;
+  text-align: center;
+  border-bottom: 1px solid #E13164;
+}
+
+div.home div.section ul {
+  list-style-type: square;
+  padding: 0 0 0 20px;
+  margin: 0px;
+}
+
+div.home div.section ul li {
+  background-position: 0px;
+  margin-bottom: 8px;
+  padding: 4px;
+  font-size: 0.7em;
+  color: #FFF;
+  background: #8F8380;
+}
+
+div.home div.section ul li a {
+  text-decoration: none;
+}
+div.home div.section ul li a:hover {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+
+
+/******************* horizontal-2 **************/
+
+div.home div.horizontal-2 {
+  position: relative;
+}
+
+div.home div.horizontal-2 > div.column {
+  position: relative;
+  float: left;
+/*   width: 220px; */
+/*   margin-left: 20px; */
+  width: 223px;
+  margin-left: 16px;
+}
+
+div.home div.horizontal-2 > div.column.first {
+  margin-left: 0;
+}
+
+div.home div.horizontal-2 > div.column > h1 {
+  display: block;
+  position: relative;
+  height: 14px;
+  padding: 5px 0;
+  background: #E13164;
+  color: #FFF;
+  line-height: 14px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+
+div.home div.horizontal-2 > div.column.community > h1 {
+  background: #0F0006;
+}
+
+div.home div.horizontal-2 > div.column > div.body {
+  position: relative;
+  min-height: 150px;
+  padding: 10px;
+  padding-bottom: 30px;
+  background: #91989D url("/images/content-bg.png") repeat-x;
+  color: #111;
+  font-size: 0.7em;
+  line-height: 1.5em;
+  border-radius: 0 0 10px 10px;
+}
+
+div.home div.horizontal-2 > div.column > div.body > p {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+div.home div.horizontal-2 > div.column > div.body a {
+  color: #E13164;
+  text-decoration: underline
+}
+
+div.home div.horizontal-2 > div.column > div.body ul {
+  list-style-type: square;
+  padding: 0 0 0 20px;
+  margin: 0px;
+}
+
+div.home div.horizontal-2 > div.column > div.body ul li {
+  background-position: 0px;
+  margin-bottom: 6px;
+}
+
+div.home div.horizontal-2 > div.column > div.body > div.more-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+}
+
+div.home div.horizontal-2 > div.column > div.body > div.more-info > a {
+  color: #442F40;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  text-decoration: none;
+}
+
+div.home div.horizontal-2 > div.column > div.body > div.more-info > a:hover {
+  color: #674861;
+}
+
+div.home div.horizontal-2 > div.column.community > div.body > div.more-info > a {
+  color: #009A9A;
+}
+
+div.home div.horizontal-2 > div.column.community > div.body > div.more-info > a:hover {
+  color: #00B8B8;
+}
+
+div.home div.horizontal-2 > div.footer-note {
+  margin-top: 30px;
+  padding: 10px;
+  background: #7C6E6B;
+  border: 1px solid #B09C98;
+}
+
+div.home div.horizontal-2 > div.footer-note > p {
+  font-size: 0.7em;
+  color: #FFE3DD;
+  margin-bottom: 10px;
+}
+div.home div.horizontal-2 > div.footer-note > p.last {
+  margin-bottom: 0;
+}
+
+div.home div.horizontal-2 > div.footer-note > p > a {
+  text-decoration: underline;
+}
+
+
+
+/******************* horizontal-3 **************/
+
+div.home div.horizontal-3 {
+  position: relative;
+  margin-top: 45px;
+}
+
+div.home div.horizontal-3 > div.video {
+  position: relative;
+  width: 422px;
+  padding: 20px;
+  padding-top: 35px;
+  background: #91989D url("/images/content-bg.png") repeat-x;
+  border-radius: 10px;
+  text-align: center;
+}
+
+div.home div.horizontal-3 > div.video > h1 {
+  color: #111723;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+div.home div.horizontal-3 > div.video > h2 {
+  color: #111723;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+div.home div.horizontal-3 > div.video > h2 > a {
+  text-decoration: underline;
+}
+
+div.home div.horizontal-3 > div.video > iframe {
+  /*margin: 20px;
+  border-radius: 5px;*/
+}

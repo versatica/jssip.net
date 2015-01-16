@@ -1,0 +1,31 @@
+---
+title: Options Object
+version: "0.6.x"
+---
+
+h1. Generic "options" argument
+
+Many methods among JsSIP API make use of an optional argument called @options@. This section provides the description of the possible values in such @Object@.
+
+
+h4. Example
+
+CODE_BEGIN "javascript"
+var options = {
+  'status_code': 480,
+  'reason_phrase': "Not ready to talk",
+  'extraHeaders': [ 'X-Foo: foo', 'X-Bar: bar' ]
+};
+
+call.reject(options);
+CODE_END
+
+
+h2. 'options' properties
+
+<%= my_lib_api_parameters({
+  "status_code" => "@Number@ between 200 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the outgoing SIP request or response.",
+  "body" => "String representing the SIP message body. *Note:* In case this parameter is set, a corresponding 'Content-Type' header field must be set."
+}) %>

@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+
+# A few helpful tips about the Rules file:
+#
+# * The string given to #compile and #route are matching patterns for
+#   identifiers--not for paths. Therefore, you can’t match on extension.
+#
+# * The order of rules is important: for each item, only the first matching
+#   rule is applied.
+#
+# * Item identifiers start and end with a slash (e.g. “/about/” for the file
+#   “content/about.html”). To select all children, grandchildren, … of an
+#   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
+#   because “*” matches zero or more characters.
+
+
+
+### compile rules
+
+# Home page.
+compile "/" do
+  filter :my_version_setter
+  filter :erb
+  layout "default"
+end
+
+# CSS files.
+compile "/css/*/" do
+  # don’t filter or layout
+end
+
+# JavaScript files.
+compile "/javascript/*/" do
+  # don’t filter or layout
+end
+
+# Download files (including its releases/ subfolder).
+compile "/download/*/" do
+  # don’t filter or layout
+end
+
+# Other files (exclude binaries).
+compile "*" do
+  unless item.binary?
+    filter :my_version_setter
+    filter :my_code_generator
+    # Using :erb before allows using nanoc helpers as "<%= link_to() %>".
+    filter :erb
+    filter :redcloth  # This is Textile.
+    layout "default"
+  end
+end
+
+
+### route rules
+
+# CSS files.
+route "/css/*/" do
+  item.identifier.chop + "." + item[:extension]
+end
+
+# JavaScript files.
+route "/javascript/*/" do
+  item.identifier.chop + "." + item[:extension]
+end
+
+# Download files.
+route "/download/*/" do
+  item.identifier.chop + "." + item[:extension]
+end
+
+# Ignore dev/ and old/ images.
+route "/images/dev/*/" do
+end
+route "/images/old/*/" do
+end
+
+
+# Other files.
+route "*" do
+  if item.binary?
+    # Write item with identifier /foo/ to /foo.ext
+    item.identifier.chop + "." + item[:extension]
+  else
+    # Write item with identifier /foo/ to /foo/index.html
+    item.identifier + "index.html"
+  end
+end
+
+
+### layout rules
+
+# "default" layout (since "*" matches all).
+layout "*", :erb

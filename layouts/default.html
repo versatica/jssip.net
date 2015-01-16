@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <title>JsSIP - <%= @item[:title] %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" media="screen" />
+    <%= if item.path == "/"
+      '<link rel="stylesheet" type="text/css" href="/css/home.css" media="screen" />'
+    else
+      '<link rel="stylesheet" type="text/css" href="/css/content.css" media="screen" />
+      <link rel="stylesheet" type="text/css" href="/css/highlight/magula.css" media="screen" />
+      <script type="text/javascript" src="/javascript/highlight/highlight.pack.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>'
+    end %>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="Author" content="Iñaki Baz Castillo" />
+    <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
+  </head>
+
+  <body>
+
+    <a id="tryit-link" href="http://tryit.jssip.net" target="_blank" title="test JsSIP online"></a>
+
+    <div id="head">
+      <h1>JsSIP</h1>
+      <h2>the JavaScript SIP library</h2>
+      <div class="horizontal-container">
+        <div id="logo"><a href="/"></a></div>
+        <div id="head-menu">
+          <%= link_to "demo", "http://tryit.jssip.net", :target => "_blank" %>
+          <%= link_to "get it", "/download/" %>
+          <%= link_to "documentation", "/documentation/" %>
+          <%= link_to "development", "https://github.com/versatica/JsSIP" %>
+          <%= link_to "f.a.q.", "/documentation/faq/" %>
+        </div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+
+    <div id="content">
+      <div class="horizontal-container">
+        <div id="page">
+          <%= if item.identifier == "/"
+            '<div class="home">' +
+              yield +
+            '</div>'
+          else
+            '<div class="breadcrumbs top">' +
+              '<h1>' + my_lib_breadcrumbs() + '</h1>' +
+            '</div>' +
+            '<div class="content">' +
+              yield +
+            '</div>' +
+            '<div class="breadcrumbs bottom">' +
+              '<h1>' + my_lib_breadcrumbs() + '</h1>' +
+            '</div>'
+          end %>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="horizontal-container">
+        <div class="padder">
+
+          <div class="column">
+            <h1>JsSIP</h1>
+            <p><%= my_lib_link_to "/authors/" %></p>
+            <p><%= my_lib_link_to "/license/" %></p>
+            <p><%= link_to "Source code", "https://github.com/versatica/JsSIP" %></p>
+            <p><%= link_to "Issues", "https://github.com/versatica/JsSIP/issues" %></p>
+            <p><%= link_to "Changelog", "https://github.com/versatica/JsSIP/blob/master/CHANGELOG.md" %></p>
+            <p><%= link_to "Mailing list", "https://groups.google.com/group/jssip" %></p>
+          </div>
+
+
+
+          <div class="www-data">
+            <p>Site created with <a href="http://nanoc.stoneship.org/" title="nanoc is a Ruby web publishing system">nanoc</a></p>
+            <div class="w3c-button">
+              <a href="http://validator.w3.org/check/referer">
+                <span class="w3c">W3C</span>
+                <span class="spec">HTML5</span>
+              </a>
+            </div>
+            <div class="w3c-button">
+              <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                <span class="w3c">W3C</span>
+                <span class="spec">CSS3</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://private.versatica.com/piwik/" : "http://private.versatica.com/piwik/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 5);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://private.versatica.com/piwik/piwik.php?idsite=5" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Tracking Code -->
+
+  </body>
+
+</html>

@@ -1,0 +1,13 @@
+---
+title: "2015-01-16: JsSIP 0.6.1 released"
+---
+
+h1. 2015-01-16: JsSIP 0.6.1 released
+
+This new version includes "Session Timers":https://tools.ietf.org/html/rfc4028 support.
+
+If JsSIP becomes the "session refresher" it sends in-dialog UPDATE requests (without SDP body) at the negotiated interval. In case the remote peer becomes the "session refresher" JsSIP allows both incoming UPDATE (with or without SDP body) or re-INVITE.
+
+A new UA configuration parameter @session_timers@ lets the user disable Session Timers support by setting it to @false@.
+
+A new field @sessionTimersExpires@ in the @options@ object of both @UA.call()@ and @RTCSession.answer()@ determines the default refresh interval (default value is 90, do not set a lower value).

@@ -1,0 +1,134 @@
+---
+title: JsSIP.RTCSession.DTMF
+link_text: "@JsSIP.RTCSession.DTMF@"
+version: "0.3.x"
+---
+
+h1. Class @JsSIP.RTCSession.DTMF@
+
+SIP INFO based DTMF.
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "tone", "#attribute_tone" %>
+** <%= link_to "duration", "#attribute_duration" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "send()", "#method_send" %>
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "sending", "#event_sending" %>
+** <%= link_to "succeeded", "#event_succeeded" %>
+** <%= link_to "failed", "#event_failed" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_tone). <%= my_lib_api_method 'tone' %>
+
+@String@ indicating the DTMF symbol.
+
+
+
+h3(#attribute_duration). <%= my_lib_api_method 'duration' %>
+
+@Number@ indicating the duration of the tone expressed in milliseconds.
+
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_send). <%= my_lib_api_method 'send(tone, options)' %>
+
+Sends a SIP INFO request carrying the given DTMF tone. This method is available for outgoing DTMF's only.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "tone" => "@String@ or @Number@ composed by a single valid DTMF symbol.",
+  "options" => "@Object@ containing the DTMF tone with other extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "duration" => "Positive decimal @Number@ indicating the duration of the tone expressed in milliseconds. Default value is @100@.",
+  "eventHandlers" => "Optional @Object@ of event handlers to be registered to each DTMF tone.",
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each INFO request."
+}) %>
+
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_VALUE_ERROR@" %>
+
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+var tone: '2';
+
+var options = {
+  'duration': 160,
+  'extraHeaders': [ 'X-Foo: foo', 'X-Bar: bar' ],
+  'eventHandlers': {
+    'succeeded': function(e){ /* Your code here */ }),
+    'failed': function(e){ /* Your code here */ }
+  }
+};
+
+var dtmf = new JsSIP.RTCSession.DTMF(coolPhone);
+
+dtmf.send(tone, options);
+CODE_END
+
+
+
+h2(#section_events). Events
+
+@JsSIP.RTCSession.DTMF@ class defines a series of events. Each of them allows callback functions registration in order to let the user execute a handler for each given stimulus.
+
+Every event handler is executed with a <%= my_lib_link_to "event" %> instance as the only argument.
+
+
+h3(#event_sending). @sending@
+
+Fired when the INFO request is created, before sending through the WebSocket connection and after firing @UA.newDTMF@ event.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@ (local user generated the DTMF).",
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance of the generated INFO request."
+}) %>
+
+
+h3(#event_succeeded). @succeeded@
+
+Fired when receiving a final positive response to DTMF INFO request.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@. Remote peer responded positively to the SIP INFO.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance of the received 2XX response."
+}) %>
+
+
+
+h3(#event_failed). @failed@
+
+Fired if no final positive response for the sent DTMF INFO is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote'/'system' @String@. Where does the DTMF failure come from.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance generating the failure for originator value of @remote@, null otherwise.",
+  "cause" => "One value of #{my_lib_link_to "causes"}."
+}) %>
