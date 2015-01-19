@@ -131,6 +131,7 @@ h4. Fields in @options@ Object
   "pcConfig" => "@Object@ representing the RTCPeerConnection @RTCConfiguration@.",
   "rtcConstraints" => "@Object@ representing RTCPeerconnection constraints.",
   "rtcAnswerConstraints" => "@Object@ representing constraints for RTCPeerconnection @createAnswer()@.",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@ (to be used for future incoming reINVITE without SDP offer).",
   "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value)."
 }) %>
 
@@ -302,7 +303,8 @@ h3(#method_renegotiate). <%= my_lib_api_method 'renegotiate(options=null)' %>
 Forces a SDP renegotiation. Useful after modifying the local stream attached to the underlying @RTCPeerConnection@ (via the @connection@ attribute).
 
 <%= my_lib_api_parameters({
-  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE"
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@."
 }) %>
 
 h4. Throws
