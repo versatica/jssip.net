@@ -46,6 +46,8 @@ Internally it holds an instance of "rtcninja.Connection":https://github.com/ibc/
 ** <%= link_to "uhold", "#event_uhold" %>
 ** <%= link_to "mute", "#event_mute" %>
 ** <%= link_to "unmute", "#event_unmute" %>
+** <%= link_to "reinvite", "#event_reinvite" %> _NEW_FEATURE_
+** <%= link_to "update", "#event_update" %> _NEW_FEATURE_
 
 
 
@@ -502,5 +504,42 @@ h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
   "audio" => "@Boolean@ Determines whether the local audio is muted.",
-  "video" => "@Boolean@ Determines whether the local video is muted.",
+  "video" => "@Boolean@ Determines whether the local video is muted."
+}) %>
+
+
+h3(#event_unmute). unmute
+
+Fired when the local media is unmuted.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "audio" => "@Boolean@ Determines whether the local audio is muted.",
+  "video" => "@Boolean@ Determines whether the local video is muted."
+}) %>
+
+
+h3(#event_reinvite). reinvite
+
+Fired when an in-dialog reINVITE is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received reINVITE request."
+}) %>
+
+
+h3(#event_update). update
+
+Fired when an in-dialog UPDATE is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received UPDATE request."
 }) %>
