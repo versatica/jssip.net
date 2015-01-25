@@ -12,8 +12,8 @@ h4. Example
 CODE_BEGIN "javascript"
 var target = 'sip:bob@example.com';
 var eventHandlers = {
-  'failed': function(e) {
-    if (e.data.cause === JsSIP.C.causes.BUSY) {
+  'failed': function(data) {
+    if (data.cause === JsSIP.C.causes.BUSY) {
       coolPhone.sendMessage(target, 'Please, call me later!');
     }
   }
@@ -26,10 +26,10 @@ CODE_END
 h2(#section_common_causes). Common Causes
 
 |_.Constant|_.Value|_.Description|
-|@INVALID_TARGET@|'Invalid target'|The specified target is not suitable to a SIP <%= link_to "URI", "http://tools.ietf.org/html/rfc3986" %>.|
 |@CONNECTION_ERROR@|'Connection Error'|WebSocket connection error ocurred.|
 |@REQUEST_TIMEOUT@|'Request Timeout'|No response received, timeout expired for the client transaction.|
 |@SIP_FAILURE_CODE@|'SIP Failure Code'|A negative SIP response was received which is not part of any of the groups defined in <%= link_to "SIP Error Causes", "#sip_error_causes"%>.|
+|@INTERNAL_ERROR@|'Internal Error'|Unexpected error.|
 
 
 h2(#sip_error_causes). SIP Error Causes
@@ -44,6 +44,7 @@ Some SIP response status codes are grouped into the following causes:
 |@NOT_FOUND@|'Not Found'|404,604|
 |@ADDRESS_INCOMPLETE@|'Address Incomplete'|484|
 |@INCOMPATIBLE_SDP@|'Incompatible SDP'|488,606|
+|@MISSING_SDP@|'Received a request/response that should have SDP body but did not.|
 |@AUTHENTICATION_ERROR@|'Authentication Error'|401,407|
 
 
@@ -57,7 +58,7 @@ The following causes apply to audio/video sessions.
 |@NO_ANSWER@|'No Answer'|Incoming call was not answered in the time given in the configuration @no_answer_timeout@ parameter.|
 |@EXPIRES@|'Expires'|Incoming call contains a Expires header and local user did not answer within the time given in the header.|
 |@NO_ACK@|'No ACK'|An incoming INVITE was replied with 2XX status code, but no ACK was received.|
-|@USER_DENIED_MEDIA_ACCESS@|'User Denied Media Access'|Local user denied media access when prompted for audio/video devices.|
-|@WEBRTC_NOT_SUPPORTED@|'WebRTC not supported'|The browser or device does not support WebRTC specification.|
-|@BAD_MEDIA_DESCRIPTION@|'Bad Media Description'|Received SDP is wrong.|
 |@DIALOG_ERROR@|'Dialog Error'|An in-dialog request received a 408 or 481 SIP error.|
+|@USER_DENIED_MEDIA_ACCESS@|'User Denied Media Access'|Local user denied media access when prompted for audio/video devices.|
+|@BAD_MEDIA_DESCRIPTION@|'Bad Media Description'|Received SDP is wrong.|
+|@RTP_TIMEOUT@|'RTP Timeout'|Session ended due to loss of RTP.|
