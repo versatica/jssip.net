@@ -306,6 +306,7 @@ Forces a SDP renegotiation. Useful after modifying the local stream attached to 
 
 <%= my_lib_api_parameters({
   "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request.",
   "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@."
 }) %>
 
