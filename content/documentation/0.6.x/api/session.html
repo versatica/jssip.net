@@ -22,16 +22,17 @@ Internally it holds an instance of "rtcninja.Connection":https://github.com/ibc/
 ** <%= link_to "isInProgress()", "#method_isInProgress" %> _NEW_FEATURE_
 ** <%= link_to "isEstablished()", "#method_isEstablished" %> _NEW_FEATURE_
 ** <%= link_to "isEnded()", "#method_isEnded" %> _NEW_FEATURE_
+** <%= link_to "isReadyToReOffer()", "#method_isReadyToReOffer" %> _NEW_FEATURE_
 ** <%= link_to "answer()", "#method_answer" %>
 ** <%= link_to "terminate()", "#method_terminate" %>
 ** <%= link_to "sendDTMF()", "#method_sendDTMF" %>
 ** <%= link_to "hold()", "#method_hold" %>
 ** <%= link_to "unhold()", "#method_unhold" %>
+** <%= link_to "renegotiate()", "#method_renegotiate" %>
 ** <%= link_to "isOnHold()", "#method_isOnHold" %>
 ** <%= link_to "mute()", "#method_mute" %>
 ** <%= link_to "unmute()", "#method_unmute" %>
 ** <%= link_to "isMuted()", "#method_isMuted" %>
-** <%= link_to "renegotiate()", "#method_renegotiate" %>
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "connecting", "#event_connecting" %>
 ** <%= link_to "progress", "#event_progress" %>
@@ -110,6 +111,11 @@ Returns @true@ if the session is established.
 h3(#method_isEnded). <%= my_lib_api_method 'isEnded()' %>
 
 Returns @true@ if the session is ended.
+
+
+h3(#method_isReadyToReOffer). <%= my_lib_api_method 'isReadyToReOffer()' %>
+
+Returns @true@ if the session is ready for a SDP renegotiation (@hold()@, @unhold()@ or @renegotiate()@ methods).
 
 
 h3(#method_answer). <%= my_lib_api_method 'answer(options)' %>
@@ -228,23 +234,63 @@ call.sendDTMF(tones, options);
 CODE_END
 
 
-h3(#method_hold). <%= my_lib_api_method 'hold()' %>
+h3(#method_hold). <%= my_lib_api_method 'hold(options=null, done=null)' %>
 
-Puts the call on hold by sending a Re-INVITE SIP request.
+Puts the call on hold by sending a Re-INVITE or UPDATE SIP request.
 
-h4. Throws
+Returns @false@ if the renegotiation is not possible at this time.
 
-* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request."
+}) %>
 
 
-h3(#method_unhold). <%= my_lib_api_method 'unhold()' %>
 
-Resumes the call from hold by sending a Re-INVITE SIP request.
+h3(#method_unhold). <%= my_lib_api_method 'unhold(options=null, done=null)' %>
 
-h4. Throws
+Resumes the call from hold by sending a Re-INVITE or UPDATE SIP request.
 
-* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+Returns @false@ if the renegotiation is not possible at this time.
 
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request."
+}) %>
+
+
+h3(#method_renegotiate). <%= my_lib_api_method 'renegotiate(options=null, done=null)' %>
+
+Forces a SDP renegotiation. Useful after modifying the local stream attached to the underlying @RTCPeerConnection@ (via the @connection@ attribute).
+
+Returns @false@ if the renegotiation is not possible at this time.
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request.",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@."
+}) %>
 
 
 h3(#method_isOnHold). <%= my_lib_api_method 'isOnHold()' %>
@@ -298,22 +344,6 @@ rtcsession.isMuted();
   'video': false   // Local audio is not muted
 }
 CODE_END
-
-
-h3(#method_renegotiate). <%= my_lib_api_method 'renegotiate(options=null)' %>
-
-Forces a SDP renegotiation. Useful after modifying the local stream attached to the underlying @RTCPeerConnection@ (via the @connection@ attribute).
-
-<%= my_lib_api_parameters({
-  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
-  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request.",
-  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@."
-}) %>
-
-h4. Throws
-
-* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
-
 
 
 h2(#section_events). Events
