@@ -32,7 +32,7 @@ for dir in $DIRS ; do
   gsed -i "s/^version:.*/version: \"${new_version}\"/" ${new_version}.html
 
   # Generate new X.Y.Z/ directory.
-  svn export ${previous_version} ${new_version} >/dev/null
+  cp -r ${previous_version} ${new_version}
 
   # Replace "version" field in all the new files within the new directory.
   cd ${new_version}/
