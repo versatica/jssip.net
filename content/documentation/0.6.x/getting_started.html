@@ -87,6 +87,8 @@ See <%= my_lib_link_to "/documentation/_JSSIP_VERSION_/api/ua/#method_call", :te
 h4. Example
 
 CODE_BEGIN "javascript"
+var session = null;
+
 // HTML5 <video> elements in which local and remote video will be shown
 var selfView =   document.getElementById('my-video');
 var remoteView =  document.getElementById('peer-video');
@@ -96,8 +98,6 @@ var eventHandlers = {
   'progress':   function(e){ /* Your code here */ },
   'failed':     function(e){ /* Your code here */ },
   'confirmed':  function(e){
-    var session = e.sender;
-
     // Attach local stream to selfView
     selfView.src = window.URL.createObjectURL(session.connection.getLocalStreams()[0]);
   },
@@ -116,7 +116,7 @@ var options = {
   'mediaConstraints': {'audio': true, 'video': true}
 };
 
-coolPhone.call('sip:bob@example.com', options);
+session = coolPhone.call('sip:bob@example.com', options);
 CODE_END
 
 
