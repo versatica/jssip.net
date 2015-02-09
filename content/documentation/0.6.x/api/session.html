@@ -372,6 +372,8 @@ h3(#event_progress). @progress@
 
 Fired when receiving or generating a 1XX SIP class response (&gt;100) to the INVITE request.
 
+The event is fired before the SDP processing, if present, giving the chance to fine tune it if required or even drop it by removing the body of the <%= my_lib_link_to "incomingResponse", :text=>"response" %> parameter in the @data@ object.
+
 
 h4. Event @data@ fields in incoming sessions
 
