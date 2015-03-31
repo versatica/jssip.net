@@ -8,7 +8,7 @@ h1. Class @JsSIP.RTCSession@
 
 The class @JsSIP.RTCSession@ represents a WebRTC media (audio/video) session. It can be initiated by the local user or by a remote peer.
 
-Internally it holds an instance of "rtcninja.Connection":https://github.com/ibc/rtcninja.js/blob/master/docs/Connection.md (accessible via the @connection@ attribute).
+Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.com/ibc/rtcninja.js/blob/master/docs/RTCPeerConnection.md (accessible via the @connection@ attribute).
 
 
 * <%= link_to "Instance Attributes", "#section_attributes" %>
@@ -57,7 +57,7 @@ h2(#section_attributes). Instance Attributes
 
 h3(#attribute_connection). <%= my_lib_api_method 'connection' %>
 
-The "rtcninja.Connection":https://github.com/ibc/rtcninja.js/blob/master/docs/Connection.md instance.
+The "rtcninja.RTCPeerConnection":https://github.com/ibc/rtcninja.js/blob/master/docs/RTCPeerConnection.md instance.
 
 
 h3(#attribute_direction). <%= my_lib_api_method 'direction' %>
