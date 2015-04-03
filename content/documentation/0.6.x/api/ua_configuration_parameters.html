@@ -33,7 +33,7 @@ Full list of configuration parameters below:
 ** <%= link_to "instance_id", "#instance_id" %>
 ** <%= link_to "no_answer_timeout", "#parameter_no_answer_timeout" %>
 ** <%= link_to "session_timers", "#parameter_session_timers" %> _NEW_FEATURE_
-** <%= link_to "node_ws_options", "#parameter_node_ws_options" %>
+** <%= link_to "node_websocket_options", "#parameter_node_websocket_options" %>
 ** <%= link_to "password", "#parameter_password" %>
 ** <%= link_to "register", "#parameter_register" %>
 ** <%= link_to "register_expires", "#parameter_register_expires" %>
@@ -184,14 +184,14 @@ session_timers: false
 CODE_END
 
 
-h4(#parameter_node_ws_options). @node_ws_options@
+h4(#parameter_node_websocket_options). @node_websocket_options@
 
-An (@Object@) with options for the "@WebSocket@":https://github.com/einaros/ws/blob/master/doc/ws.md#class-wswebsocket constructor of the Node @ws@ module.
+An (@Object@) with options for the Node @websocket@ module (the "@W3CWebSocket@":https://github.com/theturtle32/WebSocket-Node/blob/master/docs/W3CWebSocket.md constructor. Valid keys are @origin@, @headers@, @requestOptions@ and @clientConfig@.
 
 This parameter is just used when running JsSIP in Node.
 
 CODE_BEGIN "javascript"
-node_ws_options: {
+node_websocket_options: {
   origin: "http://myweb.com",
 }
 CODE_END
