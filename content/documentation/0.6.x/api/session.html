@@ -562,7 +562,8 @@ Fired when an in-dialog reINVITE is received.
 h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
-  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received reINVITE request."
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received reINVITE request.",
+  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the reINVITE is processed."
 }) %>
 
 
@@ -574,5 +575,6 @@ Fired when an in-dialog UPDATE is received.
 h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
-  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received UPDATE request."
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received UPDATE request.",
+    "callback" => "Initially @undefined@. If the user sets a function here it is executed once the UPDATE is processed."
 }) %>
