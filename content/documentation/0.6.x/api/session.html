@@ -34,6 +34,7 @@ Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.c
 ** <%= link_to "unmute()", "#method_unmute" %>
 ** <%= link_to "isMuted()", "#method_isMuted" %>
 * <%= link_to "Events", "#section_events" %>
+** <%= link_to "peerconnection", "#event_peerconnection" %> _NEW_FEATURE_
 ** <%= link_to "connecting", "#event_connecting" %>
 ** <%= link_to "progress", "#event_progress" %>
 ** <%= link_to "accepted", "#event_accepted" %>
@@ -137,9 +138,9 @@ h4. Fields in @options@ Object
   "mediaConstraints" => "@Object@ with two valid fields (@audio@ and @video@) indicating whether the session is intended to use audio and/or video and the constraints to be used. Default value is set according to the received SDP offer.",
   "mediaStream" => "@MediaStream@ to transmit to the other end.",
   "pcConfig" => "@Object@ representing the RTCPeerConnection @RTCConfiguration@.",
-  "rtcConstraints" => "@Object@ representing RTCPeerconnection constraints.",
-  "rtcAnswerConstraints" => "@Object@ representing constraints for RTCPeerconnection @createAnswer()@.",
-  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@ (to be used for future incoming reINVITE without SDP offer).",
+  "rtcConstraints" => "@Object@ representing RTCPeerConnection constraints.",
+  "rtcAnswerConstraints" => "@Object@ representing constraints for RTCPeerConnection @createAnswer()@.",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerConnection @createOffer()@ (to be used for future incoming reINVITE without SDP offer).",
   "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value)."
 }) %>
 
@@ -289,7 +290,7 @@ h4. Fields in @options@ Object
 <%= my_lib_api_parameters({
   "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
   "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request.",
-  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerconnection @createOffer()@."
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerConnection @createOffer()@."
 }) %>
 
 
@@ -349,6 +350,29 @@ CODE_END
 h2(#section_events). Events
 
 @JsSIP.RTCSession@ class defines a series of events. Each of them allow callback functions registration in order to let the user execute a function for each given stimulus.
+
+
+h3(#event_peerconnection). @peerconnection@
+
+Just fired for outgoing calls once the internal RTCPeerConnection is created but before the SDP offer is generated.
+
+The application has a chance here to alter the peerconnection by, for example, adding a `RTCDataChannel` on it.
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "peerconnection" => "The @RTCPeerConnection@ instance."
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+var datachannel;
+
+session.on('peerconnection', function(data) {
+  datachannel = data.peerconnection.createDataChannel('chat');
+});
+CODE_END
 
 
 h3(#event_connecting). @connecting@
