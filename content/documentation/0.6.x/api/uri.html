@@ -313,6 +313,17 @@ cloned_uri === uri // Returns false
 CODE_END
 
 
+h3(#method_toString). <%= my_lib_api_method 'toString()' %>
+
+Returns a @String@ representing the URI.
+
+Characters that can't appear unescaped are escaped as stated in the BNF grammar of the "RFC 3261":http://tools.ietf.org/html/rfc3261.
+
+CODE_BEGIN "javascript"
+uri.toString(); // Returns "sip:alice@atlanta.com:5060?header_name=header_value1&header_name=header_value2"
+CODE_END
+
+
 h3(#method_toAor). <%= my_lib_api_method 'toAor()' %>
 
 Returns a @String@ representing the AoR of the URI.
@@ -324,17 +335,6 @@ uri.toAor(); // Returns "sip:alice@atlanta.com"
 
 uri.user = 'j%40s0n'
 uri.toAor(): // Returns "sip:j%40s0n@atlanta.com"
-CODE_END
-
-
-h3(#method_toString). <%= my_lib_api_method 'toString()' %>
-
-Returns a @String@ representing the URI.
-
-Characters that can't appear unescaped are escaped as stated in the BNF grammar of the "RFC 3261":http://tools.ietf.org/html/rfc3261.
-
-CODE_BEGIN "javascript"
-uri.toString(); // Returns "sip:alice@atlanta.com:5060?header_name=header_value1&header_name=header_value2"
 CODE_END
 
 
