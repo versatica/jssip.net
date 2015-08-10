@@ -617,7 +617,22 @@ h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
   "request" => "#{my_lib_link_to "incomingRequest"} instance of the received reINVITE request.",
-  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the reINVITE is processed."
+  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the reINVITE is processed.",
+  "reject()" => "Denial @Method@ to be executed if the re-INVITE is rejected. 403 response code is used by default."
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
 }) %>
 
 
@@ -630,7 +645,22 @@ h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
   "request" => "#{my_lib_link_to "incomingRequest"} instance of the received UPDATE request.",
-    "callback" => "Initially @undefined@. If the user sets a function here it is executed once the UPDATE is processed."
+  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the UPDATE is processed.",
+  "reject()" => "Denial @Method@ to be executed if the re-INVITE is rejected. 403 response code is used by default."
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
 }) %>
 
 
