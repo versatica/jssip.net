@@ -14,6 +14,14 @@ JsSIP is a client side pure JavaScript library to build SIP endpoints in Web env
 
 
 
+h2. Should I use JsSIP, JSCommunicator or something else?
+
+* JsSIP provides a SIP phone API.  It does not include the HTML or JavaScript for the user interface of a phone.  Using JsSIP APIs directly allows you to achieve the most flexibility and customization.  Using JsSIP APIs directly is also a good strategy for people who have an existing JavaScript messaging UI and want to upgrade it to work using SIP signalling.
+* <%= link_to "JSCommunicator", "http://jscommunicator.org" %> is a high-level, unbranded HTML5 phone based on JsSIP and suitable for rapid deployment and customization.  You can use JSCommunicator without writing any JavaScript yourself, just clone an existing site and modify the <%= link_to "config.js file", "https://github.com/opentelecoms-org/jscommunicator/blob/master/config-sample.js" %> to meet your requirements.
++* <%= link_to "DruCall", "http://drucall.org" %> is a SIP-based WebRTC module for the popular Drupal CMS, based on JsSIP and <%= link_to "JSCommunicator", "http://jscommunicator.org" %>.  Using DruCall makes it possible to deploy WebRTC without any programming.  Just install Drupal, install the DruCall module and configure it through the administration forms in Drupal.
+
+
+
 h2. What can I do with JsSIP?
 
 You can build a complete SIP user agent in your Web page:
@@ -32,6 +40,8 @@ See the <%= my_lib_link_to "/documentation/misc/interoperability" %> section.
 h2. What do I need to run a JsSIP environment?
 
 JsSIP is a SIP WebSocket client. It needs a SIP WebSocket capable server to which connect and exchange SIP messages.
+
+Please see the <%= link_to "Real-Time Communications Quickstart Guide", "http://rtcquickstart.org" %> for comprehensive coverage of all the steps required to build an RTC infrastructure for traditional telephony, softphones and WebRTC.
 
 
 
