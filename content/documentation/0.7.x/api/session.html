@@ -37,6 +37,7 @@ Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.c
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "peerconnection", "#event_peerconnection" %>
 ** <%= link_to "connecting", "#event_connecting" %>
+** <%= link_to "sending", "#event_sending" %> _NEW_FEATURE_
 ** <%= link_to "progress", "#event_progress" %>
 ** <%= link_to "accepted", "#event_accepted" %>
 ** <%= link_to "confirmed", "#event_confirmed" %>
@@ -414,6 +415,17 @@ h4. Event @data@ fields in incoming sessions
 <%= my_lib_api_parameters({
   "request" => "#{my_lib_link_to "incomingRequest"} instance representing the incoming INVITE SIP message."
 }) %>
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance representing the outgoing INVITE SIP message."
+}) %>
+
+
+h3(#event_sending). @sending@
+
+Fired jsut before the initial INVITE is sent (just for outgoing calls). It provides a chance for the app to mangle the SIP INVITE or its SDP.
 
 h4. Event @data@ fields in outgoing sessions
 
