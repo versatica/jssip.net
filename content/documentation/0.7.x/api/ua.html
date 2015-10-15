@@ -20,6 +20,7 @@ JsSIP SIP User Agent class.
 ** <%= link_to "terminateSessions()", "#method_terminateSessions" %>
 ** <%= link_to "isRegistered()", "#method_isRegistered" %>
 ** <%= link_to "isConnected()", "#method_isConnected" %>
+** <%= link_to "set()", "#method_set" %> _NEW_FEATURE_
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "connecting", "#event_connecting" %>
 ** <%= link_to "connected", "#event_connected" %>
@@ -232,6 +233,18 @@ Returns @true@ if the UA is registered, @false@ otherwise.
 h3(#method_isConnected). <%= my_lib_api_method 'isConnected()' %>
 
 Returns @true@ if the WebSocket connection is established, @false@ otherwise.
+
+
+h3(#method_set). <%= my_lib_api_method 'set(parameter, value)' %>
+
+Modifies the given UA configuration parameter in runtime (once started). Currently just @password@ can be modified.
+
+Returns @true@ if the modifitation could be done.
+
+<%= my_lib_api_parameters({
+  "parameter" => "UA configuration parameter name.",
+  "value" => "New value."
+}) %>
 
 
 
