@@ -49,8 +49,8 @@ Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.c
 ** <%= link_to "newDTMF", "#event_newDTMF" %>
 ** <%= link_to "hold", "#event_hold" %>
 ** <%= link_to "unhold", "#event_unhold" %>
-** <%= link_to "mute", "#event_mute" %>
-** <%= link_to "unmute", "#event_unmute" %>
+** <%= link_to "muted", "#event_muted" %>
+** <%= link_to "unmuted", "#event_unmuted" %>
 ** <%= link_to "reinvite", "#event_reinvite" %>
 ** <%= link_to "update", "#event_update" %>
 ** <%= link_to "refer", "#event_refer" %> _NEW_FEATURE_
@@ -600,7 +600,7 @@ h4. Event @data@ fields
 }) %>
 
 
-h3(#event_mute). mute
+h3(#event_muted). muted
 
 Fired when the local media is muted.
 
@@ -613,7 +613,7 @@ h4. Event @data@ fields
 }) %>
 
 
-h3(#event_unmute). unmute
+h3(#event_unmuted). unmuted
 
 Fired when the local media is unmuted.
 
