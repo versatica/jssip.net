@@ -35,6 +35,8 @@ Full list of configuration parameters below:
 ** <%= link_to "session_timers", "#parameter_session_timers" %>
 ** <%= link_to "node_websocket_options", "#parameter_node_websocket_options" %>
 ** <%= link_to "password", "#parameter_password" %>
+** <%= link_to "realm", "#parameter_realm" %>
+** <%= link_to "ha1", "#parameter_ha1" %>
 ** <%= link_to "register", "#parameter_register" %>
 ** <%= link_to "register_expires", "#parameter_register_expires" %>
 ** <%= link_to "registrar_server", "#parameter_registrar_server" %>
@@ -201,8 +203,34 @@ h4(#parameter_password). @password@
 
 SIP Authentication password (@String@).
 
+The plain SIP password. JsSIP deletes this value from its internal memory after the first successful authentication and, instead, stores the resulting @ha1@ and @realm@.
+
 CODE_BEGIN "javascript"
 password: "1234"
+CODE_END
+
+
+h4(#parameter_realm). @realm@
+
+SIP Authentication realm (@String@).
+
+Just useful if plain SIP @password@ is not given, so it also requires @ha1@ to be provided.
+
+CODE_BEGIN "javascript"
+realm: "mydomain.com"
+CODE_END
+
+NOTE for Asterisk users: Asterisk always uses "asterisk" as @realm@.
+
+
+h4(#parameter_ha1). @ha1@
+
+SIP Authentication HA1 hash (@String@) for the Digest authentication.
+
+If given (and plain SIP @password@ is not given) the parameter @realm@ is also required. Otherwise authentication is not feasible.
+
+CODE_BEGIN "javascript"
+ha1: "270fe19ce3890bd85e105998b0a75cf0"
 CODE_END
 
 
