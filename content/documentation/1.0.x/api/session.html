@@ -37,6 +37,7 @@ Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.c
 ** <%= link_to "resetLocalMedia()", "#method_resetLocalMedia" %> _NEW_FEATURE_
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "peerconnection", "#event_peerconnection" %>
+** <%= link_to "iceconnectionstatechange", "#event_iceconnectionstatechange" %> _NEW_FEATURE_
 ** <%= link_to "connecting", "#event_connecting" %>
 ** <%= link_to "sending", "#event_sending" %> _NEW_FEATURE_
 ** <%= link_to "progress", "#event_progress" %>
@@ -411,6 +412,19 @@ session.on('peerconnection', function(data) {
   datachannel = data.peerconnection.createDataChannel('chat');
 });
 CODE_END
+
+
+h3(#event_iceconnectionstatechange). @iceconnectionstatechange@
+
+Fired when ICE connection state changes for the current @RTCPeerConnection@.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "state" => "The @RTCPeerConnection@ ICE connection state."
+}) %>
+
+Possible ICE connection states are defined <%= link_to "here", "https://www.w3.org/TR/webrtc/#idl-def-RTCIceConnectionState"%>
 
 
 h3(#event_connecting). @connecting@
