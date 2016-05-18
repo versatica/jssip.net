@@ -55,6 +55,7 @@ Internally it holds an instance of "rtcninja.RTCPeerConnection":https://github.c
 ** <%= link_to "update", "#event_update" %>
 ** <%= link_to "refer", "#event_refer" %> _NEW_FEATURE_
 ** <%= link_to "replaces", "#event_replaces" %> _NEW_FEATURE_
+** <%= link_to "sdp", "#event_sdp" %> _NEW_FEATURE_
 
 
 
@@ -736,4 +737,18 @@ h4. Event @data.accept()@ parameters
 h4. Event @data.reject()@ parameters
 
 This method does not require any parameter.
+
+
+
+h3(#event_sdp). sdp
+
+Fired before passing a remote SDP to the RTC engine, and before sending out a local SDP.
+This event provides the mechanism to modify incoming and outgoing SDP.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "@String@ indicating whether the SDP is locally generated or was remotely received. Possible values are @local@ or @remote@ respectively.",
+  "sdp" => "@String@ representing the SDP. Modifications must be done directly on this parameter."
+}) %>
 
