@@ -65,13 +65,13 @@ h2(#section_methods). Instance Methods
 
 h3(#method_start). <%= my_lib_api_method 'start()' %>
 
-Connects to the WebSocket server and restores the previous state if previously stopped. For a fresh start, registers with the SIP domain if @register@ parameter in the UA's configuration is set to @true@.
+Connects to the signaling server and restores the previous state if previously stopped. For a fresh start, registers with the SIP domain if @register@ parameter in the UA's configuration is set to @true@.
 
 
 
 h3(#method_stop). <%= my_lib_api_method 'stop()' %>
 
-Saves the current registration state and disconnects from the WebSocket server after gracefully unregistering and terminating active sessions if any.
+Saves the current registration state and disconnects from the signaling server after gracefully unregistering and terminating active sessions if any.
 
 
 
@@ -234,7 +234,7 @@ Returns @true@ if the UA is registered, @false@ otherwise.
 
 h3(#method_isConnected). <%= my_lib_api_method 'isConnected()' %>
 
-Returns @true@ if the WebSocket connection is established, @false@ otherwise.
+Returns @true@ if the transport is connected, @false@ otherwise.
 
 
 h3(#method_get). <%= my_lib_api_method 'get(parameter)' %>
@@ -266,40 +266,41 @@ h2(#section_events). Events
 
 h3(#event_connecting). @connecting@
 
-Fired for each WebSocket connection attempt.
+Fired for each transport connection attempt.
 
 h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
-  "transport" => "WebSocket connection.",
-  "attempts" => "@Number@ indicating the connection attempts to the @transport@."
+  "socket" => "#{my_lib_link_to 'socket'} instance being connecting.",
+  "attempts" => "@Number@ indicating the transport connection attempts."
 }) %>
 
 
 
 h3(#event_connected). @connected@
 
-Fired when the WebSocket connection is established.
+Fired when the transport connection is established.
 
 h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
-  "transport" => "WebSocket connection."
+  "socket" => "#{my_lib_link_to 'socket'} instance which has connected."
 }) %>
 
 
 
 h3(#event_disconnected). @disconnected@
 
-Fired when the WebSocket connection attempt (or automatic re-attempt) fails.
+Fired when the transport connection attempt (or automatic re-attempt) fails.
 
 
 h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
-  "transport" => "WebSocket connection.",
-  "code" => "@Number@ indicating the WebSocket disconnection code.",
-  "reason" => "@String@ indicating the WebSocket disconnection reason."
+  "socket" => "#{my_lib_link_to 'socket'} instance.",
+  "error" => "@Boolean@ indicating whether the socket disconnected due to an error",
+  "code" => "Optional @Number@ indicating the socket disconnection code.",
+  "reason" => "Optional @String@ indicating the socket disconnection reason."
 }) %>
 
 

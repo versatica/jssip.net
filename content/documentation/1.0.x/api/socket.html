@@ -1,0 +1,104 @@
+---
+title: JsSIP.Socket
+link_text: "@JsSIP.Socket@"
+version: "1.0.x"
+---
+
+h1. @JsSIP.Socket@ interface
+
+The Socket interface presented in this section abstracts JsSIP from the mechanism used to send and receive SIP traffic. JsSIP internal transport deals now with this interface and hence, it is not attached to the built-in WebSocket as a transport socket.
+
+Implementations must follow the interface specification below in order to get JsSIP working with the underlaying transport mechanism.
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "via_transport", "#attribute_via_transport" %>
+** <%= link_to "url", "#attribute_url" %>
+** <%= link_to "sip_uri", "#attribute_sip_uri" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "connect()", "#method_connect" %>
+** <%= link_to "disconnect()", "#method_disconnect" %>
+** <%= link_to "send()", "#method_send" %>
+* <%= link_to "Event Handlers", "#section_events" %>
+** <%= link_to "onconnect()", "#event_onconnect" %>
+** <%= link_to "ondisconnect()", "#event_ondisconnect" %>
+** <%= link_to "ondata()", "#event_ondata" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_via_transport). <%= my_lib_api_method 'via_transport' %>
+
+@String@ indicating the Via transport used in the Via Header field for outgoing Requests.
+
+
+h3(#attribute_url). <%= my_lib_api_method 'url' %>
+
+@String@ identifying the socket URL. It is used for debugging purposes.
+
+
+h3(#attribute_sip_uri). <%= my_lib_api_method 'sip_uri' %>
+
+@String@ indicating the connection endpoint SIP URI. Used in SIP Route header field.
+
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_connect). <%= my_lib_api_method 'connect()' %>
+
+Called by JsSIP when the socket availability for sending and receiving data in required.
+The event handler @onconnect@ must be called as soon as the socket is ready or @ondisconnect@ if the socket fails to connect  or is not usable.
+
+
+h3(#method_disconnect). <%= my_lib_api_method 'disconnect()' %>
+
+Called by JsSIP when the socket is no longer needed for now.
+Event handlers called after this call will be ignored.
+
+
+h3(#method_send). <%= my_lib_api_method 'send(data)' %>
+
+Called by JsSIP when the given data needs to be sent.
+
+Returns @true@ if the data was successfully sent. @false@ otherwise.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "data" => "@String@ representation of the data to be sent."
+}) %>
+
+
+h2(#section_events). Event Handlers
+
+
+h3(#event_onconnect). @onconnect()@
+
+Must be called when the socket becomes usable for sending and receiving data after @connect@ was called or an unsolicited disconnection occured.
+
+
+h3(#event_ondisconnect). @ondisconnect(error, code, reason)@
+
+Must be called when the socket becomes unusable for sending or receiving data.
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "error" => "@Boolean@ indicating whether the socket disconnected due to an error",
+  "code" => "Optional @Number@ indicating the socket disconnection code.",
+  "reason" => "Optional @String@ indicating the socket disconnection reason."
+}) %>
+
+h3(#event_ondata). @ondata(data)@
+
+Must be called when there is data to be processed by JsSIP.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "data" => "@String@ or @Binary@ representation of the data."
+}) %>
