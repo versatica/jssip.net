@@ -1,0 +1,34 @@
+---
+title: JsSIP.IncomingResponse
+link_text: "@JsSIP.IncomingResponse@"
+version: "2.0.x"
+---
+
+h1. Class @JsSIP.IncomingResponse@
+
+An instance of @JsSIP.IncomingResponse@ holds a received SIP response.
+
+
+h2. Parent Class
+
+@JsSIP.IncomingResponse@ inherits from <%= my_lib_link_to "incomingMessage" %>.
+
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "status_code", "#attribute_status_code" %>
+** <%= link_to "reason_phrase", "#attribute_reason_phrase" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_status_code). <%= my_lib_api_method 'status_code' %>
+
+@Number@ indicating the status code of the SIP response.
+
+
+h3(#attribute_reason_phrase). <%= my_lib_api_method 'reason_phrase' %>
+
+@String@ indicating the reason phrase of the SIP response.
+

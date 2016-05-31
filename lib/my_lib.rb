@@ -1,8 +1,8 @@
 module MyLib
 
   # Update these attributes for new stable releases.
-  @jssip_last_version = "1.0.x"
-  @jssip_last_full_version = "1.0.1"
+  @jssip_last_version = "2.0.x"
+  @jssip_last_full_version = "2.0.1"
 
   class << self
     attr_reader :jssip_last_version, :jssip_last_full_version

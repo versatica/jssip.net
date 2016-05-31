@@ -1,0 +1,13 @@
+---
+title: JsSIP.WebSocketInterface
+link_text: "@JsSIP.WebSocketInterface@"
+version: "2.0.x"
+---
+
+h1. @JsSIP.WebSocketInterface@
+
+JsSIP built-in <%= my_lib_link_to "socket" %> interface for browser environments.
+
+JsSIP internally creates the required instances if the *ws_servers* configuration parameter is provided to <%= my_lib_link_to "ua" %>.
+
+Users requiring specific values on 'via_transport', 'url' or 'sip_uri' <%= my_lib_link_to "socket" %> properties must create instance/s of this class, set such values and pass them to <%= my_lib_link_to "ua" %> constructor.
