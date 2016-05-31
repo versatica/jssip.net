@@ -14,8 +14,6 @@ Attribute setters allow socket customization if required.
 
 * <%= link_to "Attribute setters", "#section_attributes" %>
 ** <%= link_to "via_transport", "#attribute_via_transport" %>
-** <%= link_to "url", "#attribute_url" %>
-** <%= link_to "sip_uri", "#attribute_sip_uri" %>
 
 
 h2(#section_attributes). Attribute setters
@@ -24,13 +22,3 @@ h2(#section_attributes). Attribute setters
 h3(#attribute_via_transport). <%= my_lib_api_method 'via_transport(value)' %>
 
 @String@ indicating the Via transport used in the Via Header field for outgoing Requests.
-
-
-h3(#attribute_url). <%= my_lib_api_method 'url(value)' %>
-
-@String@ identifying the socket URL. It is used for debugging purposes.
-
-
-h3(#attribute_sip_uri). <%= my_lib_api_method 'sip_uri(value)' %>
-
-@String@ indicating the connection endpoint SIP URI. Used in SIP Route header field.
