@@ -48,7 +48,7 @@ h2(#section_methods). Instance Methods
 
 h3(#method_connect). <%= my_lib_api_method 'connect()' %>
 
-Called by JsSIP when the socket availability for sending and receiving data in required.
+Called by JsSIP when the socket availability for sending and receiving data is required.
 The event handler @onconnect@ must be called as soon as the socket is ready or @ondisconnect@ if the socket fails to connect  or is not usable.
 
 
@@ -94,7 +94,7 @@ h4. Parameters
 
 h3(#event_ondata). @ondata(data)@
 
-Must be called when there is data to be processed by JsSIP.
+Must be called when there is a SIP message to be processed by JsSIP.
 
 
 h4. Parameters
