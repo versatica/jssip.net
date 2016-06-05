@@ -19,6 +19,10 @@ CODE_END
 
 Full list of configuration parameters below:
 
+* <%= link_to "Parameters removed from previous version", "#section_removed" %>
+** *hack_via_tcp*. See <%= link_to "sockets", "#parameter_sockets" %> parameter
+** *hack_via_ws* See <%= link_to "sockets", "#parameter_sockets" %> parameter
+** *hack_ip_in_contact*. See <%= link_to "contact_uri", "#parameter_contact_uri" %> parameter
 * <%= link_to "Mandatory Parameters", "#section_mandatory" %>
 ** <%= link_to "uri", "#parameter_uri" %>
 ** <%= link_to "ws_servers", "#parameter_ws_servers" %> / <%= link_to "sockets", "#parameter_sockets" %> _NEW_FEATURE_
@@ -26,6 +30,7 @@ Full list of configuration parameters below:
 ** <%= link_to "authorization_user", "#parameter_authorization_user" %>
 ** <%= link_to "connection_recovery_max_interval", "#parameter_connection_recovery_max_interval" %>
 ** <%= link_to "connection_recovery_min_interval", "#parameter_connection_recovery_min_interval" %>
+** <%= link_to "contact_uri", "#parameter_contact_uri" %> _NEW_FEATURE_
 ** <%= link_to "display_name", "#parameter_display_name" %>
 ** <%= link_to "hack_ip_in_contact", "#parameter_hack_ip_in_contact" %>
 ** <%= link_to "instance_id", "#instance_id" %>
@@ -140,6 +145,11 @@ Minimum interval (@Number@) in seconds between WebSocket reconnection attempts. 
 CODE_BEGIN "javascript"
 connection_recovery_min_interval: 4
 CODE_END
+
+
+h4(#parameter_contact_uri). @contact_uri@
+
+@String@ indicating the contact URI to be used in the Contact header field. The given URI host will be used as the Via header host parameter.
 
 
 h4(#parameter_display_name). @display_name@
