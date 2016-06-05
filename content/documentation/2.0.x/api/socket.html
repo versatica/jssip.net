@@ -8,7 +8,9 @@ h1. @JsSIP.Socket@ interface
 
 The Socket interface presented in this section abstracts JsSIP from the mechanism used to send and receive SIP traffic. JsSIP internal transport deals now with this interface and hence, it is not attached to the built-in WebSocket as a transport socket.
 
-Implementations must follow the interface specification below in order to get JsSIP working with the underlaying transport mechanism.
+Implementations must follow the interface specificied here in order to get JsSIP working with the underlaying transport mechanism.
+
+JsSIP exposes a built-in <%= my_lib_link_to "websocket" %> class implementing this interface for browser environments. An implementation for Node.js is also available via: <%= my_lib_link_to "node_websocket" %>.
 
 * <%= link_to "Instance Attributes", "#section_attributes" %>
 ** <%= link_to "via_transport", "#attribute_via_transport" %>
