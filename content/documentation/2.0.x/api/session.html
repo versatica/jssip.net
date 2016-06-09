@@ -763,6 +763,7 @@ h4. Event @data@ fields
 
 <%= my_lib_api_parameters({
   "originator" => "@String@ indicating whether the SDP is locally generated or was remotely received. Possible values are @local@ or @remote@ respectively.",
+  "type" => "@String@ indicating whether the SDP is an @offer@ or an @answer@.",
   "sdp" => "@String@ representing the SDP. Modifications must be done directly on this parameter."
 }) %>
 
