@@ -21,9 +21,11 @@ CODE_END
 
 Full list of configuration parameters below:
 
+* <%= link_to "Parameters removed from previous version", "#section_removed" %>
+** *ws_servers*. See <%= link_to "sockets", "#parameter_sockets" %> parameter
 * <%= link_to "Mandatory Parameters", "#section_mandatory" %>
 ** <%= link_to "uri", "#parameter_uri" %>
-** <%= link_to "ws_servers", "#parameter_ws_servers" %> / <%= link_to "sockets", "#parameter_sockets" %>
+** <%= link_to "sockets", "#parameter_sockets" %>
 * <%= link_to "Optional Parameters", "#section_optional" %>
 ** <%= link_to "authorization_user", "#parameter_authorization_user" %>
 ** <%= link_to "connection_recovery_max_interval", "#parameter_connection_recovery_max_interval" %>
@@ -52,37 +54,6 @@ SIP URI associated to the User Agent (@String@). This is a SIP address given to 
 
 CODE_BEGIN "javascript"
 uri: "sip:alice@example.com"
-CODE_END
-
-
-h4(#parameter_ws_servers). @ws_servers@
-
-Set of WebSocket URIs to connect to. If not specified ports 80 and 443 are taken for non secure WebSocket connections and connections over SSL/TLS, respectively. This parameter can be expressed in multiple ways:
-
-* Single @String@ to define a single WebSocket URI.
-* @Array@ of @Strings@ to define multiple WebSocket URIs.
-* @Array@ of @Objects@ to define multiple WebSocket URIs with weight. URIs with higher weight value are used prior to those with lower value.
-
-CODE_BEGIN "javascript"
-ws_servers: "ws://sip-ws.example.com"
-CODE_END
-
-CODE_BEGIN "javascript"
-ws_servers: "wss://sip-ws.example.com:8443/sip?KEY=1234"
-CODE_END
-
-CODE_BEGIN "javascript"
-ws_servers: [
-  "ws://sip-ws-1.example.com",
-  "ws://sip-ws-2.example.com",
-]
-CODE_END
-
-CODE_BEGIN "javascript"
-ws_servers: [
-  {ws_uri: "ws://sip-ws-1.example.com", weight: 10},
-  {ws_uri: "ws://sip-ws-2.example.com", weight: 1}
-]
 CODE_END
 
 
@@ -254,17 +225,3 @@ CODE_END
 h4(#parameter_use_preloaded_route). @use_preloaded_route@
 
 If set to @true@ every SIP initial request sent by JsSIP includes a Route header with the SIP URI associated to the WebSocket server as value. Some SIP Outbound Proxies require such a header. Valid values are @true@ and @false@ @(Boolean)@. Default value is @false@.
-
-CODE_BEGIN "javascript"
-ws_servers: "ws://example.org/sip-ws"
-use_preloaded_route: true
-CODE_END
-
-The Route header will look like <code>Route: <sip:example.org;lr;transport=ws></code>
-
-CODE_BEGIN "javascript"
-ws_servers: "wss://example.org:8443"
-use_preloaded_route: true
-CODE_END
-
-The Route header will look like <code>Route: <sip:example.org:8443;lr;transport=ws></code>

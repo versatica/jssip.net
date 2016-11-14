@@ -19,10 +19,11 @@ JsSIP User Agent requires a configuration object for its initialization. There a
 
 
 CODE_BEGIN "javascript"
+var socket = new JsSIP.WebSocketInterface('wss://sip.myhost.com');
 var configuration = {
-  'ws_servers': 'ws://sip-ws.example.com',
-  'uri': 'sip:alice@example.com',
-  'password': 'superpassword'
+  sockets  : [ socket ],
+  uri      : 'sip:alice@example.com',
+  password : 'superpassword'
 };
 CODE_END
 
@@ -89,10 +90,11 @@ h4. Example
 CODE_BEGIN "javascript"
 // Create our JsSIP instance and run it:
 
+var socket = new JsSIP.WebSocketInterface('wss://sip.myhost.com');
 var configuration = {
-  'ws_servers': 'ws://sip-ws.example.com',
-  'uri': 'sip:alice@example.com',
-  'password': 'superpassword'
+  sockets  : [ socket ],
+  uri      : 'sip:alice@example.com',
+  password : 'superpassword'
 };
 
 var ua = new JsSIP.UA(configuration);

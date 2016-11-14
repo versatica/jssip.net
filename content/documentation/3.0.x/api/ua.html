@@ -49,11 +49,12 @@ h4. Throws
 h4. Example
 
 CODE_BEGIN "javascript"
+var socket = new JsSIP.WebSocketInterface('wss://sip.example.com');
 var configuration = {
-  'ws_servers' : 'ws://sip-ws.example.com',
-  'uri'        : 'sip:alice@example.com',
-  'ha1'        : '350fe29ce3890bd85d105998b0a95cf7',
-  'realm'      : 'sip.example.com'
+  sockets : [ socket ],
+  uri     : 'sip:alice@example.com',
+  ha1     : '350fe29ce3890bd85d105998b0a95cf7',
+  realm   : 'sip.example.com'
 };
 
 var ua = new JsSIP.UA(configuration);
