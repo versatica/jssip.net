@@ -1,0 +1,64 @@
+---
+title: JsSIP.RTCSession.DTMF
+link_text: "@JsSIP.RTCSession.DTMF@"
+version: "3.0.x"
+---
+
+h1. Class @JsSIP.RTCSession.DTMF@
+
+SIP INFO based DTMF.
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "tone", "#attribute_tone" %>
+** <%= link_to "duration", "#attribute_duration" %>
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "succeeded", "#event_succeeded" %>
+** <%= link_to "failed", "#event_failed" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_tone). <%= my_lib_api_method 'tone' %>
+
+@String@ indicating the DTMF symbol.
+
+
+
+h3(#attribute_duration). <%= my_lib_api_method 'duration' %>
+
+@Number@ indicating the duration of the tone expressed in milliseconds.
+
+
+
+h2(#section_events). Events
+
+@JsSIP.RTCSession.DTMF@ class defines a series of events. Each of them allows callback functions registration in order to let the user execute a handler for each given stimulus.
+
+
+h3(#event_succeeded). @succeeded@
+
+Fired when receiving a final positive response to DTMF INFO request.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@. Remote peer responded positively to the SIP INFO.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance of the received 2XX response."
+}) %>
+
+
+
+h3(#event_failed). @failed@
+
+Fired if no final positive response for the sent DTMF INFO is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote'/'system' @String@. Where does the DTMF failure come from.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance generating the failure for originator value of @remote@, null otherwise.",
+  "cause" => "One value of #{my_lib_link_to "causes"}."
+}) %>

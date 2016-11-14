@@ -1,6 +1,6 @@
 ---
 title: UA Configuration Parameters
-version: "2.0.x"
+version: "3.0.x"
 ---
 
 h1. UA Configuration Parameters
@@ -8,25 +8,27 @@ h1. UA Configuration Parameters
 <%= my_lib_link_to "ua" %> requires a configuration object with mandatory and optional parameters. Example:
 
 CODE_BEGIN "javascript"
+var socket = new JsSIP.WebSocketInterface(ws://sip-ws.example.com);
+
 var configuration = {
-  'ws_servers':         'ws://sip-ws.example.com',
-  'uri':                'sip:alice@example.com',
-  'password':           'superpassword'
+  sockets  : [ socket ],
+  uri      : 'sip:alice@example.com',
+  password : 'superpassword'
 };
 
-var coolPhone = new JsSIP.UA(configuration);
+var ua = new JsSIP.UA(configuration);
 CODE_END
 
 Full list of configuration parameters below:
 
 * <%= link_to "Mandatory Parameters", "#section_mandatory" %>
 ** <%= link_to "uri", "#parameter_uri" %>
-** <%= link_to "ws_servers", "#parameter_ws_servers" %> / <%= link_to "sockets", "#parameter_sockets" %> _NEW_FEATURE_
+** <%= link_to "ws_servers", "#parameter_ws_servers" %> / <%= link_to "sockets", "#parameter_sockets" %>
 * <%= link_to "Optional Parameters", "#section_optional" %>
 ** <%= link_to "authorization_user", "#parameter_authorization_user" %>
 ** <%= link_to "connection_recovery_max_interval", "#parameter_connection_recovery_max_interval" %>
 ** <%= link_to "connection_recovery_min_interval", "#parameter_connection_recovery_min_interval" %>
-** <%= link_to "contact_uri", "#parameter_contact_uri" %> _NEW_FEATURE_
+** <%= link_to "contact_uri", "#parameter_contact_uri" %>
 ** <%= link_to "display_name", "#parameter_display_name" %>
 ** <%= link_to "instance_id", "#instance_id" %>
 ** <%= link_to "no_answer_timeout", "#parameter_no_answer_timeout" %>
