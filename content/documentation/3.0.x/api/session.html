@@ -70,7 +70,7 @@ h3(#attribute_connection). <%= my_lib_api_method 'connection' %>
 
 The underlying @RTCPeerConnection@ instance associated to this session. Use it to set events related to WebRTC (such as @onaddstream@, @onaddtrack@, etc).
 
-Note that, for outgoing calls, the @RTCPeerConnection@ is set after calling @ua.call()@. However, for incoming calls the application must wait for the <%= link_to "accepted", "#event_accepted" %> event is fired.
+Note that, for outgoing calls, the @RTCPeerConnection@ is set after calling @ua.call()@. However, for incoming calls the @RTCPeerConnection@ is set after calling @session.answer()@.
 
 
 h3(#attribute_direction). <%= my_lib_api_method 'direction' %>
