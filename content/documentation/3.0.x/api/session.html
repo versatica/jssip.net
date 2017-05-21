@@ -425,9 +425,7 @@ h2(#section_events). Events
 
 h3(#event_peerconnection). @peerconnection@
 
-Just fired for outgoing calls once the internal @RTCPeerConnection@ is created but before the SDP offer is generated. Also fired for incoming calls without SDP offer.
-
-The application has a chance here to alter the peerconnection by, for example, adding a @RTCDataChannel@ on it.
+Fired once the underlying @RTCPeerConnection@ is created. The application has a chance here to alter the peerconnection by, for example, adding a @RTCDataChannel@ on it.
 
 h4. Event @data@ fields in outgoing sessions
 
