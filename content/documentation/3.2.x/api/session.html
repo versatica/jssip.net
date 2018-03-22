@@ -57,6 +57,7 @@ Internally it holds a @RTCPeerConnection@ instance, accessible via the @connecti
 ** <%= link_to "refer", "#event_refer" %>
 ** <%= link_to "replaces", "#event_replaces" %>
 ** <%= link_to "sdp", "#event_sdp" %>
+** <%= link_to "icecandidate", "#event_icecandidate" %> *New!*
 ** <%= link_to "getusermediafailed", "#event_getusermediafailed" %>
 ** <%= link_to "peerconnection:createofferfailed", "#event_peerconnection_createofferfailed" %>
 ** <%= link_to "peerconnection:createanswerfailed", "#event_peerconnection_createanswerfailed" %>
@@ -783,6 +784,21 @@ h4. Event @data@ fields
   "originator" => "@String@ indicating whether the SDP is locally generated or was remotely received. Possible values are @local@ or @remote@ respectively.",
   "type" => "@String@ indicating whether the SDP is an @offer@ or an @answer@.",
   "sdp" => "@String@ representing the SDP. Modifications must be done directly on this parameter."
+}) %>
+
+
+h3(#event_icecandidate). icecandidate
+
+Fired for each gathered local ICE candidate while requesting RTCPeerConnection for the local description.
+This event provides the mechanism to stop waiting for more ICE candidates to be gathered so that the local description can be sent out (as an SDP offer or answer) before the whole ICE gathering process finishes.
+
+NOTE: See "RTCIceCandidate"://www.w3.org/TR/webrtc/#rtcicecandidate-interface specification for detailed info on the event data type *candidate*
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "candidate" => "@RTCIceCandidate@ instance as described in the W3C specification.",
+  "ready" => "@Function@ to be executed by the event callback if *candidate* is the last one to be gathered prior to retrieve the local description."
 }) %>
 
 
