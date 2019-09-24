@@ -20,6 +20,6 @@ JsSIP uses the <%= my_lib_link_to "/documentation/misc/sip_websocket" %> transpo
 
 h2. WebRTC Web browsers
 
-At media plane (audio calls), JsSIP version 0.2.0 works with Chrome browser from version 24.
+At media plane, JsSIP works with any WebRTC capable browser. Here a <%= link_to "list", "https://caniuse.com/webrtc"%> of WebRTC support in Web browsers. The use of the old RTCPPeerConnection @addStream@ method has been deprecated in favour of the newer @addTrack@ one, however this is easy to polyfill if needed as stated in the <%= link_to "specification", "https://www.w3.org/TR/webrtc/#legacy-interface-extensions"%>.
 
-At signaling plane (SIP protocol), JsSIP runs in any WebSocket capable browser. Here a <%= link_to "list", "http://caniuse.com/websockets"%> of WebSocket support in Web browsers.
+At signaling plane (SIP protocol), JsSIP runs in any WebSocket capable browser. Here a <%= link_to "list", "https://caniuse.com/websockets"%> of WebSocket support in Web browsers.
