@@ -87,5 +87,5 @@ deploy:
   # Usage:  nanoc deploy --target production
   production:
     kind: rsync
-    dst: "versatica:/var/www/jssip.net"
+    dst: "vhost1-deploy:/var/www/jssip.net"
     options: [ "-Prvz", "--delete", "--exclude='.svn'", "--exclude='.git'" ]
