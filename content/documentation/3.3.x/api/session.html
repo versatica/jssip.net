@@ -36,7 +36,6 @@ Internally it holds a @RTCPeerConnection@ instance, accessible via the @connecti
 ** <%= link_to "unmute()", "#method_unmute" %>
 ** <%= link_to "isMuted()", "#method_isMuted" %>
 ** <%= link_to "refer()", "#method_refer" %>
-** <%= link_to "resetLocalMedia()", "#method_resetLocalMedia" %>
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "peerconnection", "#event_peerconnection" %>
 ** <%= link_to "connecting", "#event_connecting" %>
@@ -411,12 +410,6 @@ h4. Fields in @options@ Object
 h4. Throws
 
 * <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_TARGET_ERROR@" %>
-
-
-h3(#method_resetLocalMedia). <%= my_lib_api_method 'resetLocalMedia()' %>
-
-Reset the local MediaStream by enabling both its audio and video tracks (unless the remote peer is on hold).
-
 
 
 h2(#section_events). Events
