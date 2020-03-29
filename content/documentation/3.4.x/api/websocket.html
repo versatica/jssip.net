@@ -1,0 +1,42 @@
+---
+title: JsSIP.WebSocketInterface
+link_text: "@JsSIP.WebSocketInterface@"
+version: "3.4.x"
+---
+
+h1. @JsSIP.WebSocketInterface@
+
+JsSIP built-in <%= my_lib_link_to "socket" %> interface for browser environments.
+
+Attribute setters allow socket customization if required.
+
+* <%= link_to "Instantiation", "#section_instantiation" %>
+* <%= link_to "Attribute setters", "#section_attributes" %>
+** <%= link_to "via_transport", "#attribute_via_transport" %>
+
+
+h2(#section_instantiation). Instantiation
+
+Takes a single @String@ parameter indicating the WebSocket server URL.
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@TYPE_ERROR@" %>
+
+
+h2(#section_attributes). Attribute setters
+
+
+h3(#attribute_via_transport). <%= my_lib_api_method 'via_transport(value)' %>
+
+@String@ indicating the Via transport used in the Via Header field for outgoing Requests.
+
+h4. Example
+
+CODE_BEGIN "javascript"
+var socket = new JsSIP.WebSocketInterface('ws://sip-ws.example.com');
+socket.via_transport = "tcp";
+
+configuration.sockets = [ socket ];
+var ua = new UA(configuration);
+CODE_END
