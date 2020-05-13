@@ -222,6 +222,7 @@ h4. Fields in @options@ Object
   "duration" => "Positive decimal @Number@ indicating the duration of the tone expressed in milliseconds. Default value is @100@.",
   "interToneGap" => "Positive decimal @Number@ indicating the interval between two tones expressed in milliseconds. Default value is @500@.",
   "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each INFO request.",
+  "transportType" => "Optional @String@ 'INFO' or 'RFC2833'. Default value is 'INFO'",
 }) %>
 
 h4. Throws
@@ -249,6 +250,16 @@ var options = {
 };
 
 call.sendDTMF(tones, options);
+CODE_END
+
+h4. Example 3
+
+CODE_BEGIN "javascript"
+var options = {
+  'transportType': 'RFC2833'
+};
+
+call.sendDTMF(1, options);
 CODE_END
 
 
