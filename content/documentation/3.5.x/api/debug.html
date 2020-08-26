@@ -1,0 +1,65 @@
+---
+title: JsSIP.debug
+link_text: "@JsSIP.debug@"
+version: "3.5.x"
+---
+
+h1. Module @JsSIP.debug@
+
+Debugging for Node.js and the browser.
+
+Starting with version 0.6.0, JsSIP includes the Node "debug":https://github.com/visionmedia/debug module, suitable for both Node.js and the browser. JsSIP exposes the module via the @JsSIP.debug@ accessor.
+
+
+
+h2. Debugging in th browser
+
+By default JsSIP logs nothing to the browser console. In order to enable debugging, run the following command in the browser console and reload the page:
+
+CODE_BEGIN "javascript"
+> JsSIP.debug.enable('JsSIP:*');
+CODE_END
+
+Note that the logging settings get stored into the browser LocalStorage. To disable it run the following command in the browser console and reload the page:
+
+CODE_BEGIN "javascript"
+> JsSIP.debug.disable('JsSIP:*');
+CODE_END
+
+In order to enable it by default, add the following after the @<script>@ tag:
+
+CODE_BEGIN "html"
+<script src='js/jssip-X.Y.Z.min.js'></script>
+<script>JsSIP.debug.enable('JsSIP:*');</script>
+CODE_END
+
+
+h2. Debugging in Node.js
+
+Set the @DEBUG@ environment variable as follows before running your Node script/command:
+
+CODE_BEGIN "bash"
+$ export DEBUG="JsSIP:*"
+CODE_END
+
+Or run it as follows:
+
+CODE_BEGIN "bash"
+$ DEBUG="JsSIP:*"  node my_script.js
+CODE_END
+
+
+h2. Partial debug
+
+Instead of @"JsSIP:*"@ (which enables debug for all the JsSIP components), enabling debugging for just individual components is possible as follows:
+
+* In the browser: CODE_BEGIN "javascript"
+> JsSIP.debug.enable('JsSIP:Transport JsSIP:RTCSession*');
+CODE_END
+* In Node.js: CODE_BEGIN "javascript"
+$ DEBUG="JsSIP:Transport JsSIP:RTCSession*"  node my_script.js
+CODE_END
+
+Each file in the JsSIP source tree provides a different debug identificator (all of them starting with "JsSIP:") which matches the filename and its relative path.
+
+For example, to enable debug for DTMF (whose class is defined in @src/RTCSession/DTMF.js@) add @"JsSIP:RTCSession:DTMF"@ to your @DEBUG@ variable (Node) or pass it to the @JsSIP.debug.enable()@ method (browser). Use @"JsSIP:RTCSession*"@ to enable debug for the @JsSIP.RTCSession@ class and all its subclasses.

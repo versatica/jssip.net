@@ -1,7 +1,7 @@
 module MyLib
 
   # Update these attributes for new stable releases.
-  @jssip_last_version = "3.0.x"
+  @jssip_last_version = "3.5.x"
   @jssip_last_full_version = "3.5.7"
 
   class << self

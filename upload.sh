@@ -4,4 +4,4 @@ set -e
 
 
 nanoc co
-nanoc deploy  --target production
+nanoc deploy --target production
