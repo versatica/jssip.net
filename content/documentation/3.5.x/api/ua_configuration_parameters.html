@@ -37,6 +37,7 @@ Full list of configuration parameters below:
 ** <%= link_to "no_answer_timeout", "#parameter_no_answer_timeout" %>
 ** <%= link_to "session_timers", "#parameter_session_timers" %>
 ** <%= link_to "session_timers_refresh_method", "#parameter_session_timers_refresh_method" %>
+** <%= link_to "session_timers_force_refresher", "#parameter_session_timers_force_refresher" %>
 ** <%= link_to "password", "#parameter_password" %>
 ** <%= link_to "realm", "#parameter_realm" %>
 ** <%= link_to "ha1", "#parameter_ha1" %>
@@ -178,6 +179,17 @@ SIP method (@String@) to use for Session Timers refresh. Valid values are @UPDAT
 
 CODE_BEGIN "javascript"
 session_timers_refresh_method: 'invite'
+CODE_END
+
+
+h4(#parameter_session_timers_force_refresher). @session_timers_force_refresher@
+
+Whether the JsSIP shall force to be refresher of session timers for outgoing calls.
+When this is enabled JsSIP adds the "refresher=uac" parameter to the Session-Expires HF in the initial INVITE.
+Default value is @false@.
+
+CODE_BEGIN "javascript"
+session_timers_force_refresher: true
 CODE_END
 
 
