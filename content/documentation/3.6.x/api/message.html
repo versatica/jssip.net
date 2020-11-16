@@ -1,0 +1,162 @@
+---
+title: JsSIP.Message
+link_text: "@JsSIP.Message@"
+version: "3.6.x"
+---
+
+h1. Class @JsSIP.Message@
+
+SIP MESSAGE based IM.
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "direction", "#attribute_direction" %>
+** <%= link_to "local_identity", "#attribute_local_identity" %>
+** <%= link_to "remote_identity", "#attribute_remote_identity" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "send()", "#method_send" %>
+** <%= link_to "accept()", "#method_accept" %> 
+** <%= link_to "reject()", "#method_reject" %> 
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "succeeded", "#event_succeeded" %>
+** <%= link_to "failed", "#event_failed" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3. <%= my_lib_api_method 'direction' %>
+
+@String@ indicating who sent the MESSAGE. Possible values are 'incoming' when the MESSAGE is sent by the remote peer or 'outgoing' when the MESSAGE is sent by the local user.
+
+
+
+h3(#attribute_local_identity). <%= my_lib_api_method 'local_identity' %>
+
+<%= my_lib_link_to "nameAddrHeader" %> instance indicating the local identity. It corresponds with the MESSAGE From header value when the direction is 'outgoing', and with the To header value when the direction is 'incoming'
+
+
+
+h3(#attribute_remote_identity). <%= my_lib_api_method 'remote_identity' %>
+
+<%= my_lib_link_to "nameAddrHeader" %> instance indicating the remote identity. It corresponds with the MESSAGE To header value when the direction is 'outgoing', and with the From header value when the direction is 'incoming'
+
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_send). <%= my_lib_api_method 'send(target, body, options=null)' %>
+
+Sends the message through the WebSocket connection. This method is available for outgoing messages only.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "target" => "Destination of the message. @String@ representing a destination username or a complete SIP URI.",
+  "body" => "Message content. @String@ representing the body of the message.",
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "contentType" => "Optional @String@ representing the content-type of the body. Default @text/plain@.",
+  "eventHandlers" => "Optional @Object@ of event handlers to be registered to each message event. Define an event handler for each event you want to be notified about.",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request."
+}) %>
+
+
+h4. Example
+
+CODE_BEGIN "javascript"
+var text = 'Hello Bob!';
+
+var eventHandlers = {
+  'succeeded': function(e){ /* Your code here */ },
+  'failed':    function(e){ /* Your code here */ };
+};
+
+var options = {
+  'eventHandlers': eventHandlers
+};
+
+coolPhone.sendMessage('sip:bob@example.com', text, options);
+CODE_END
+
+h3(#method_accept). <%= my_lib_api_method 'accept(options)' %>
+
+Responds positively to the incoming MESSAGE. Indicates the sender that it has been delivered to the destination. This method is available for incoming messages only.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "body" => "String representing the SIP message body.
+  *Note:* In case this parameter is set, a corresponding 'Content-Type' header field must be set in 'extraHeader' field."
+}) %>
+
+
+
+h3(#method_reject). <%= my_lib_api_method 'reject(options)' %>
+
+Responds negatively to the incoming MESSAGE. Indicates the sender that it has not been delivered to the destination. The response code and reason determinte the rejection cause. This method is available for incoming messages only.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
+  "body" => "String representing the SIP message body.
+  *Note:* In case this parameter is set, a corresponding 'Content-Type' header field must be set in 'extraHeader' field."
+}) %>
+
+
+h2(#section_events). Events
+
+@JsSIP.Message@ class defines a series of events. Each of them allows callback functions registration in order to let the user execute a handler for each given stimulus.
+
+
+h3(#event_succeeded). @succeeded@
+
+Fired when receiving a final positive response to MESSAGE request.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@. Remote peer responded positively to the SIP MESSAGE.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance of the received 2XX response."
+}) %>
+
+
+
+h3(#event_failed). @failed@
+
+Fired if no final positive response for the sent MESSAGE is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote'/'system' @String@. Where does the MESSAGE failure come from.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance generating the failure for originator value of @remote@, null otherwise.",
+  "cause" => "One value of #{my_lib_link_to "causes"}."
+}) %>
