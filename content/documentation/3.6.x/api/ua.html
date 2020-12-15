@@ -242,7 +242,7 @@ Returns @true@ if the transport is connected, @false@ otherwise.
 
 h3(#method_get). <%= my_lib_api_method 'get(parameter)' %>
 
-Retrieves the computed configuration parameter once in runtime. Currently just @realm@ and @ha1@ can be retrieved.
+Retrieves the computed configuration parameter once in runtime. Currently the following values can be retrieved: @authorization_user@, @realm@, @ha1@ and @authorization_jwt@.
 
 <%= my_lib_api_parameters({
   "parameter" => "UA configuration parameter name."
@@ -251,7 +251,7 @@ Retrieves the computed configuration parameter once in runtime. Currently just @
 
 h3(#method_set). <%= my_lib_api_method 'set(parameter, value)' %>
 
-Modifies the given UA configuration parameter in runtime (once started). Currently just @display_name@, @password@, @realm@ and @ha1@ can be modified.
+Modifies the given UA configuration parameter in runtime (once started). Currently just @authorization_user@, @password@, @realm@, @ha1@, @authorization_jwt@ and @display_name@ can be modified.
 
 Returns @true@ if the modifitation could be done.
 
