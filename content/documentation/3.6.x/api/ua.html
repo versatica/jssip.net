@@ -141,7 +141,9 @@ h4. Fields in @options@ Object
   "eventHandlers" => "Optional @Object@ of event handlers to be registered to each call event. Define an event handler for each event you want to be notified about.",
   "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the INVITE request.",
   "anonymous" => "@Boolean@ field indicating whether the call should be done anonymously. Default value is @false@.",
-  "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value)."
+  "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value).",
+  "fromUserName" => "@String@ to override the user name in the From header.",
+  "fromDisplayName" => "Descriptive name (@String@) to be shown to the called party. Overrides the UA configuration parameter @display_name@."
 }) %>
 
 
