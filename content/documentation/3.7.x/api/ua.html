@@ -1,7 +1,7 @@
 ---
 title: JsSIP.UA
 link_text: "@JsSIP.UA@"
-version: "3.6.x"
+version: "3.7.x"
 ---
 
 h1. Class @JsSIP.UA@
@@ -142,6 +142,8 @@ h4. Fields in @options@ Object
   "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the INVITE request.",
   "anonymous" => "@Boolean@ field indicating whether the call should be done anonymously. Default value is @false@.",
   "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value).",
+  "fromUserName" => "@String@ to override the user name in the From header. *New!*",
+  "fromDisplayName" => "@String@ to override the display name in the From header. Overrides the UA configuration parameter @display_name@. *New!*"
 }) %>
 
 
