@@ -1,7 +1,7 @@
 /*
  * JsSIP v3.7.7
  * the Javascript SIP library
- * Copyright: 2012-2021 José Luis Millán <jmillan@aliax.net> (https://github.com/jmillan)
+ * Copyright: 2012-2021 
  * Homepage: https://jssip.net
  * License: MIT
  */
@@ -22286,17 +22286,17 @@ exports.isSocket = function (socket) {
   try {
     if (!Utils.isString(socket.url)) {
       logger.warn('missing or invalid JsSIP.Socket url property');
-      throw new Error();
+      throw new Error('Missing or invalid JsSIP.Socket url property');
     }
 
     if (!Utils.isString(socket.via_transport)) {
       logger.warn('missing or invalid JsSIP.Socket via_transport property');
-      throw new Error();
+      throw new Error('Missing or invalid JsSIP.Socket via_transport property');
     }
 
     if (Grammar.parse(socket.sip_uri, 'SIP_URI') === -1) {
       logger.warn('missing or invalid JsSIP.Socket sip_uri property');
-      throw new Error();
+      throw new Error('missing or invalid JsSIP.Socket sip_uri property');
     }
   } catch (e) {
     return false;
@@ -22307,7 +22307,7 @@ exports.isSocket = function (socket) {
     ['connect', 'disconnect', 'send'].forEach(function (method) {
       if (!Utils.isFunction(socket[method])) {
         logger.warn("missing or invalid JsSIP.Socket method: ".concat(method));
-        throw new Error();
+        throw new Error("Missing or invalid JsSIP.Socket method: ".concat(method));
       }
     });
   } catch (e) {
@@ -27902,9 +27902,9 @@ module.exports={
   "description": "the Javascript SIP library",
   "version": "3.7.7",
   "homepage": "https://jssip.net",
-  "author": "José Luis Millán <jmillan@aliax.net> (https://github.com/jmillan)",
   "contributors": [
-    "Iñaki Baz Castillo <ibc@aliax.net> (https://github.com/ibc)"
+    "José Luis Millán <jmillan@aliax.net> (https://github.com/jmillan)",
+    "Iñaki Baz Castillo <ibc@aliax.net> (https://inakibaz.me)"
   ],
   "types": "lib/JsSIP.d.ts",
   "main": "lib-es5/JsSIP.js",
