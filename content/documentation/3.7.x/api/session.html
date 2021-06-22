@@ -413,7 +413,7 @@ h4. Parameters
 h4. Fields in @options@ Object
 
 <%= my_lib_api_parameters({
-  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for the REFER request.",
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for the REFER request. If a \"Referred-by\" entry is present, it will be used on the outgoing REFER request.",
   "eventHandlers" => "Optional @Object@ of event handlers to be registered for the #{my_lib_link_to "refer_subscriber"}.",
   "replaces" => "Optional #{my_lib_link_to "session"} instance which dialog is meant to be replaced at the refer target. This is a live session between this user agent and the one pointed by the Refer-To resource.",
 }) %>
