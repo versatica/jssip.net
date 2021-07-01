@@ -192,7 +192,7 @@ h4. Parameters
 h4. Fields in @options@ Object
 
 <%= my_lib_api_parameters({
-  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the outbound request or response.",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
   "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
   "reason_phrase" => "@String@ representing the SIP reason phrase.",
   "body" => "String representing the SIP message body (in case this parameter is set, a corresponding Content-Type header field must be set in @extraHeader@ field)."
