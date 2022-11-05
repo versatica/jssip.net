@@ -1,0 +1,831 @@
+---
+title: JsSIP.RTCSession
+link_text: "@JsSIP.RTCSession@"
+version: "3.10.x"
+---
+
+h1. Class @JsSIP.RTCSession@
+
+The class @JsSIP.RTCSession@ represents a WebRTC media (audio/video) session. It can be initiated by the local user or by a remote peer.
+
+Internally it holds a @RTCPeerConnection@ instance, accessible via the @connection@ attribute.
+
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "connection", "#attribute_connection" %>
+** <%= link_to "direction", "#attribute_direction" %>
+** <%= link_to "local_identity", "#attribute_local_identity" %>
+** <%= link_to "remote_identity", "#attribute_remote_identity" %>
+** <%= link_to "start_time", "#attribute_start_time" %>
+** <%= link_to "end_time", "#attribute_end_time" %>
+** <%= link_to "data", "#attribute_data" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "isInProgress()", "#method_isInProgress" %>
+** <%= link_to "isEstablished()", "#method_isEstablished" %>
+** <%= link_to "isEnded()", "#method_isEnded" %>
+** <%= link_to "isReadyToReOffer()", "#method_isReadyToReOffer" %>
+** <%= link_to "answer()", "#method_answer" %>
+** <%= link_to "terminate()", "#method_terminate" %>
+** <%= link_to "sendDTMF()", "#method_sendDTMF" %>
+** <%= link_to "sendInfo()", "#method_sendInfo" %>
+** <%= link_to "hold()", "#method_hold" %>
+** <%= link_to "unhold()", "#method_unhold" %>
+** <%= link_to "renegotiate()", "#method_renegotiate" %>
+** <%= link_to "isOnHold()", "#method_isOnHold" %>
+** <%= link_to "mute()", "#method_mute" %>
+** <%= link_to "unmute()", "#method_unmute" %>
+** <%= link_to "isMuted()", "#method_isMuted" %>
+** <%= link_to "refer()", "#method_refer" %>
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "peerconnection", "#event_peerconnection" %>
+** <%= link_to "connecting", "#event_connecting" %>
+** <%= link_to "sending", "#event_sending" %>
+** <%= link_to "progress", "#event_progress" %>
+** <%= link_to "accepted", "#event_accepted" %>
+** <%= link_to "confirmed", "#event_confirmed" %>
+** <%= link_to "ended", "#event_ended" %>
+** <%= link_to "failed", "#event_failed" %>
+** <%= link_to "newDTMF", "#event_newDTMF" %>
+** <%= link_to "newInfo", "#event_newInfo" %>
+** <%= link_to "hold", "#event_hold" %>
+** <%= link_to "unhold", "#event_unhold" %>
+** <%= link_to "muted", "#event_muted" %>
+** <%= link_to "unmuted", "#event_unmuted" %>
+** <%= link_to "reinvite", "#event_reinvite" %>
+** <%= link_to "update", "#event_update" %>
+** <%= link_to "refer", "#event_refer" %>
+** <%= link_to "replaces", "#event_replaces" %>
+** <%= link_to "sdp", "#event_sdp" %>
+** <%= link_to "icecandidate", "#event_icecandidate" %>
+** <%= link_to "getusermediafailed", "#event_getusermediafailed" %>
+** <%= link_to "peerconnection:createofferfailed", "#event_peerconnection_createofferfailed" %>
+** <%= link_to "peerconnection:createanswerfailed", "#event_peerconnection_createanswerfailed" %>
+** <%= link_to "peerconnection:setlocaldescriptionfailed", "#event_peerconnection_setlocaldescriptionfailed" %>
+** <%= link_to "peerconnection:setremotedescriptionfailed", "#event_peerconnection_setremotedescriptionfailed" %>
+
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_connection). <%= my_lib_api_method 'connection' %>
+
+The underlying @RTCPeerConnection@ instance associated to this session. Use it to set events related to WebRTC (such as @onaddstream@, @onaddtrack@, etc).
+
+Note that, for outgoing calls, the @RTCPeerConnection@ is set after calling @ua.call()@. However, for incoming calls the @RTCPeerConnection@ is set after calling @session.answer()@.
+
+
+h3(#attribute_direction). <%= my_lib_api_method 'direction' %>
+
+@String@ indicating who started the session. Possible values are 'incoming' when the session is started by the remote peer or 'outgoing' when the session is started by the local user.
+
+
+
+h3(#attribute_local_identity). <%= my_lib_api_method 'local_identity' %>
+
+<%= my_lib_link_to "nameAddrHeader" %> instance indicating the local identity. It corresponds with the INVITE From header value when the direction is 'outgoing', and with the To header value when the direction is 'incoming'
+
+
+
+h3(#attribute_remote_identity). <%= my_lib_api_method 'remote_identity' %>
+
+<%= my_lib_link_to "nameAddrHeader" %> instance indicating the remote identity. It corresponds with the INVITE To header value when the direction is 'outgoing', and with the From header value when the direction is 'incoming'
+
+
+h3(#attribute_start_time). <%= my_lib_api_method 'start_time' %>
+
+@Date@ object indicating the time when the session started. Takes its value at the moment when @accepted@ event was fired.
+
+
+
+h3(#attribute_end_time). <%= my_lib_api_method 'end_time' %>
+
+@Date@ object indicating the time when the session ended. Takes its value at the moment when @ended@ event was fired.
+
+
+h3(#attribute_data). <%= my_lib_api_method 'data' %>
+
+An object for the application to store custom information associated to this session.
+
+
+h3(#attribute_data). <%= my_lib_api_method 'data' %>
+
+Custom session empty @Object@ for application usage. The developer can add here custom attribute/value pairs.
+
+
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_isInProgress). <%= my_lib_api_method 'isInProgress()' %>
+
+Returns @true@ if the session is in progress state (not established and not ended).
+
+
+h3(#method_isEstablished). <%= my_lib_api_method 'isEstablished()' %>
+
+Returns @true@ if the session is established.
+
+
+h3(#method_isEnded). <%= my_lib_api_method 'isEnded()' %>
+
+Returns @true@ if the session is ended.
+
+
+h3(#method_isReadyToReOffer). <%= my_lib_api_method 'isReadyToReOffer()' %>
+
+Returns @true@ if the session is ready for a SDP renegotiation (@hold()@, @unhold()@ or @renegotiate()@ methods).
+
+
+h3(#method_answer). <%= my_lib_api_method 'answer(options)' %>
+
+Answer the incoming session. This method is available for incoming sessions only.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the 200 OK response.",
+  "mediaConstraints" => "@Object@ with two valid fields (@audio@ and @video@) indicating whether the session is intended to use audio and/or video and the constraints to be used. Default value is set according to the received SDP offer.",
+  "mediaStream" => "@MediaStream@ to transmit to the other end.",
+  "pcConfig" => "@Object@ representing the RTCPeerConnection @RTCConfiguration@.",
+  "rtcConstraints" => "@Object@ representing RTCPeerConnection constraints.",
+  "rtcAnswerConstraints" => "@Object@ representing constraints for RTCPeerConnection @createAnswer()@.",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerConnection @createOffer()@ (to be used for future incoming reINVITE without SDP offer).",
+  "sessionTimersExpires" => "@Number@ (in seconds) for the default Session Timers interval (default value is 90, do not set a lower value)."
+}) %>
+
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+
+
+
+h3(#method_terminate). <%= my_lib_api_method 'terminate(options)' %>
+
+Terminate the current session regardless its direction or state.
+
+Depending on the state of the session, this function may send a CANCEL request, a non-2xx final response, a BYE request, or even no request.
+
+For incoming sessions, if the user has not answered the incoming INVITE, this function sends the non-2xx final response with the optionally specified status code and reason phrase. @480 Unavailvable@ is responded by default.
+
+For outgoing sessions, if the original INVITE has not been already sent, it will never be sent. If the original INVITE has not been answered with a final response, the behavior depends on whether provisional response has been received. If provisional response has been received, a CANCEL request will be sent. If no provisional response has been received, the function will not send a CANCEL as per <%= link_to "RFC 3261", "http://tools.ietf.org/html/rfc3261" %>. If then a provisional response is received, the CANCEL request will be automatically sent.
+
+For both incoming and outgoing, if the INVITE session has been answered with final response, a BYE request will be sent.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the outbound request or response.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
+  "body" => "String representing the SIP message body (in case this parameter is set, a corresponding Content-Type header field must be set in @extraHeader@ field)."
+}) %>
+
+*NOTE:* When generating a CANCEL, status_code can take values from 200 to 699. The @status_code@ and @reason_phrase@ will form a Reason header field as specified in "RFC3326":http://tools.ietf.org/rfc/rfc3326.txt. A CANCEL will not take the @extraHeaders@ parameter nor the @body@ paramter.
+
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+
+
+
+h3(#method_sendDTMF). <%= my_lib_api_method 'sendDTMF(tone, options=null)' %>
+
+Send one or multiple DTMF tones making use of SIP INFO method.
+
+<%= my_lib_api_parameters({
+  "tone" => "@String@ or @Number@ composed by one or multiple valid DTMF symbols.",
+  "options" => "Optional @Object@ with extra parameters. See below."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "duration" => "Positive decimal @Number@ indicating the duration of the tone expressed in milliseconds. Default value is @100@.",
+  "interToneGap" => "Positive decimal @Number@ indicating the interval between two tones expressed in milliseconds. Default value is @500@.",
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each INFO request.",
+  "transportType" => "Optional @String@ 'INFO' or 'RFC2833'. Default value is 'INFO'",
+}) %>
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+
+h4. Example 1
+
+CODE_BEGIN "javascript"
+call.sendDTMF(1);
+call.sendDTMF(4);
+CODE_END
+
+h4. Example 2
+
+CODE_BEGIN "javascript"
+var tones = '1234#';
+
+var extraHeaders = [ 'X-Foo: foo', 'X-Bar: bar' ];
+
+var options = {
+  'duration': 160,
+  'interToneGap': 1200,
+  'extraHeaders': extraHeaders
+};
+
+call.sendDTMF(tones, options);
+CODE_END
+
+h4. Example 3
+
+CODE_BEGIN "javascript"
+var options = {
+  'transportType': 'RFC2833'
+};
+
+call.sendDTMF(1, options);
+CODE_END
+
+
+h3(#method_sendInfo). <%= my_lib_api_method 'sendInfo(contentType, body=null, options=null)' %>
+
+Send a SIP INFO message.
+
+<%= my_lib_api_parameters({
+  "contentType" => "@String@ representing the SIP INFO message Content-Type header field value.",
+  "body" => "Optional @String@ representing the SIP INFO message body.",
+  "options" => "Optional @Object@ with extra parameters. See below."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each INFO request.",
+}) %>
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_STATE_ERROR@" %>
+
+
+
+h3(#method_hold). <%= my_lib_api_method 'hold(options=null, done=null)' %>
+
+Puts the call on hold by sending a Re-INVITE or UPDATE SIP request.
+
+Returns @false@ if the renegotiation is not possible at this time.
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request."
+}) %>
+
+
+
+h3(#method_unhold). <%= my_lib_api_method 'unhold(options=null, done=null)' %>
+
+Resumes the call from hold by sending a Re-INVITE or UPDATE SIP request.
+
+Returns @false@ if the renegotiation is not possible at this time.
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request."
+}) %>
+
+
+h3(#method_renegotiate). <%= my_lib_api_method 'renegotiate(options=null, done=null)' %>
+
+Forces a SDP renegotiation. Useful after modifying the local stream attached to the underlying @RTCPeerConnection@ (via the @connection@ attribute).
+
+Returns @false@ if the renegotiation is not possible at this time.
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters. See below.",
+  "done" => "Optional @Function@ called once the renegotiation has succeeded."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "useUpdate" => "@Boolean@ Send UPDATE instead of re-INVITE",
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the request.",
+  "rtcOfferConstraints" => "@Object@ representing constraints for RTCPeerConnection @createOffer()@."
+}) %>
+
+
+h3(#method_isOnHold). <%= my_lib_api_method 'isOnHold()' %>
+
+Returns an @Object@ with the properties "local" and "remote" and a @Boolean@ value asociated with each one. It represents whether the "local" and/or "remote" peer are on hold.
+
+h4. Example
+
+CODE_BEGIN "javascript"
+rtcsession.isOnHold();
+
+{
+  'local': true,    // User has put the other peer on hold
+  'remote': false   // Peer hasn't put user on hold
+}
+CODE_END
+
+
+
+h3(#method_mute). <%= my_lib_api_method 'mute(options=null)' %>
+
+Mutes the local audio and/or video.
+
+<%= my_lib_api_parameters({
+  "audio" => "@Boolean@ Determines whether local audio must be muted",
+  "video" => "@Boolean@ Determines whether local video must be muted",
+}) %>
+
+
+h3(#method_unmute). <%= my_lib_api_method 'unmute(options=null)' %>
+Unmutes the local audio and/or video.
+
+<%= my_lib_api_parameters({
+  "audio" => "@Boolean@ Determines whether local audio must be unmuted",
+  "video" => "@Boolean@ Determines whether local video must be unmuted",
+}) %>
+
+
+h3(#method_isMuted). <%= my_lib_api_method 'isMuted()' %>
+
+Returns an @Object@ with the properties "audio" and "video" and a @Boolean@ value asociated with each one. It represents whether the local "audio" and/or "video" are on muted.
+
+h4. Example
+
+CODE_BEGIN "javascript"
+rtcsession.isMuted();
+
+{
+  'audio': true,   // Local audio is muted
+  'video': false   // Local audio is not muted
+}
+CODE_END
+
+
+
+h3(#method_refer). <%= my_lib_api_method 'refer(target, options=null)' %>
+
+Sends an in-dialog REFER method with the given target as the Refer-To resource.
+
+A REFER method implicitly generates a subscription to the state of the refer. The NOTIFY requests received from the peer are processed and presented in form of events by <%= my_lib_link_to "refer_subscriber" %>.
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "target" => "Refer-To resource. @String@ representing a destination username or a complete SIP URI, or a #{my_lib_link_to "uri"} instance.",
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for the REFER request. If a \"Referred-By\" entry is present, it will be used on the outgoing REFER request.",
+  "eventHandlers" => "Optional @Object@ of event handlers to be registered for the #{my_lib_link_to "refer_subscriber"}.",
+  "replaces" => "Optional #{my_lib_link_to "session"} instance which dialog is meant to be replaced at the refer target. This is a live session between this user agent and the one pointed by the Refer-To resource.",
+}) %>
+
+h4. Throws
+
+* <%= my_lib_link_to "dom_exceptions", :text=>"@INVALID_TARGET_ERROR@" %>
+
+
+h2(#section_events). Events
+
+@JsSIP.RTCSession@ class defines a series of events. Each of them allow callback functions registration in order to let the user execute a function for each given stimulus.
+
+
+h3(#event_peerconnection). @peerconnection@
+
+Fired once the underlying @RTCPeerConnection@ is created. The application has a chance here to alter the peerconnection by, for example, adding a @RTCDataChannel@ on it, or to set the corresponding event listenters.
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "peerconnection" => "The @RTCPeerConnection@ instance."
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+var datachannel;
+
+session.on('peerconnection', function(data) {
+  datachannel = data.peerconnection.createDataChannel('chat');
+});
+CODE_END
+
+
+h3(#event_connecting). @connecting@
+
+Fired after the local media stream is added into @RTCSession@ and before the ICE gathering starts for initial INVITE request or "200 OK" response transmission.
+
+h4. Event @data@ fields in incoming sessions
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance representing the incoming INVITE SIP message."
+}) %>
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance representing the outgoing INVITE SIP message."
+}) %>
+
+
+h3(#event_sending). @sending@
+
+Fired just before the initial INVITE is sent (just for outgoing calls). It provides a chance for the app to mangle the SIP INVITE or its SDP.
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance representing the outgoing INVITE SIP message."
+}) %>
+
+
+h3(#event_progress). @progress@
+
+Fired when receiving or generating a 1XX SIP class response (&gt;100) to the INVITE request.
+
+The event is fired before the SDP processing, if present, giving the chance to fine tune it if required or even drop it by removing the body of the <%= my_lib_link_to "incomingResponse", :text=>"response" %> parameter in the @data@ object.
+
+
+h4. Event @data@ fields in incoming sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@."
+}) %>
+
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance of the received SIP 1XX response."
+}) %>
+
+
+
+h3(#event_accepted). @accepted@
+
+Fired when the call is accepted (2XX received/sent).
+
+
+h4. Event @data@ fields in incoming sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@."
+}) %>
+
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@.",
+  "response" => "#{my_lib_link_to "incomingResponse"} instance of the received SIP 2XX response."
+}) %>
+
+
+h3(#event_confirmed). @confirmed@
+
+Fired when the call is confirmed (ACK received/sent).
+
+
+h4. Event @data@ fields in incoming sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@."
+}) %>
+
+
+h4. Event @data@ fields in outgoing sessions
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@.",
+  "ack" => "#{my_lib_link_to "incomingRequest"} instance of the received SIP ACK."
+}) %>
+
+
+h3(#event_ended). @ended@
+
+Fired when an established call ends.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'local'/'remote'/'system' @String@. Where does the call termination come from.",
+  "message" => "#{my_lib_link_to "incomingRequest"} or #{my_lib_link_to "incomingResponse"} instance generating the call termination when @originator@ value is 'remote', @null@ otherwise.",
+  "cause" => "One value of #{my_lib_link_to "causes"}."
+}) %>
+
+
+
+h3(#event_failed). @failed@
+
+Fired when the session was unable to establish.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'local'/'remote'/'system' @String@. Where does the call failure come from.",
+  "message" => "#{my_lib_link_to "incomingRequest"} or #{my_lib_link_to "incomingResponse"} instance generating the call failure when @originator@ value is 'remote', @null@ otherwise.",
+  "cause" => "One value of #{my_lib_link_to "causes"}."
+}) %>
+
+
+h3(#event_newDTMF). newDTMF
+
+Fired for an incoming or outgoing DTMF.
+
+
+h4. Event @data@ fields for an incoming DTMF
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@. The new DTMF is generated by the remote peer.",
+  "dtmf" => "#{my_lib_link_to "session_dtmf"} instance.",
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received INFO request.",
+}) %>
+
+
+h4. Event @data@ fields for an outgoing DTMF
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@. The new DTMF is generated by the local user.",
+  "dtmf" => "#{my_lib_link_to "session_dtmf"} instance.",
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance of the outgoing INFO request.",
+}) %>
+
+
+h3(#event_newInfo). newInfo
+
+Fired for an incoming or outgoing SIP INFO message.
+
+
+h4. Event @data@ fields for an incoming SIP INFO message.
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@. The new SIP INFO message is generated by the remote peer.",
+  "info" => "#{my_lib_link_to "session_info"} instance.",
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received INFO request.",
+}) %>
+
+
+h4. Event @data@ fields for an outgoing SIP INFO message.
+
+<%= my_lib_api_parameters({
+  "originator" => "'local' @String@. The new SIP INFO message. is generated by the local user.",
+  "info" => "#{my_lib_link_to "session_info"} instance.",
+  "request" => "#{my_lib_link_to "outgoingRequest"} instance of the outgoing INFO request.",
+}) %>
+
+
+h3(#event_hold). hold
+
+Fired when the user or the peer puts the other side on hold.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@ if the other peer has put the user on hold. 'local' @String@ if the user has put the other peer on hold."
+}) %>
+
+
+h3(#event_unhold). unhold
+
+Fired when the user or the peer resumes the other end from hold.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "'remote' @String@ if the other peer has resumed the user from hold. 'local' @String@ if the user has resumend the other peer from hold."
+}) %>
+
+
+h3(#event_muted). muted
+
+Fired when the local media is muted.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "audio" => "@Boolean@ Determines whether the local audio is muted.",
+  "video" => "@Boolean@ Determines whether the local video is muted."
+}) %>
+
+
+h3(#event_unmuted). unmuted
+
+Fired when the local media is unmuted.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "audio" => "@Boolean@ Determines whether the local audio is muted.",
+  "video" => "@Boolean@ Determines whether the local video is muted."
+}) %>
+
+
+h3(#event_reinvite). reinvite
+
+Fired when an in-dialog reINVITE is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received reINVITE request.",
+  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the reINVITE is processed.",
+  "reject()" => "Denial @Method@ to be executed if the re-INVITE is rejected. 403 response code is used by default."
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
+}) %>
+
+
+h3(#event_update). update
+
+Fired when an in-dialog UPDATE is received.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received UPDATE request.",
+  "callback" => "Initially @undefined@. If the user sets a function here it is executed once the UPDATE is processed.",
+  "reject()" => "Denial @Method@ to be executed if the re-INVITE is rejected. 403 response code is used by default."
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+<%= my_lib_api_parameters({
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers for the MESSAGE request.",
+  "status_code" => "@Number@ between 300 and 699 representing the SIP response code.",
+  "reason_phrase" => "@String@ representing the SIP reason phrase.",
+}) %>
+
+
+h3(#event_refer). refer
+
+Fired when an in-dialog REFER is received.
+
+If the refer aproval is granted, a new outgoing <%= my_lib_link_to "session" %> is generated to the target indicated in the Refer-To header field.
+
+The NOTIFY mechanism is used to inform the agent sending the REFER of the status of the reference as defined in <%= link_to "RFC 3515", "http://tools.ietf.org/html/rfc3515" %>.
+
+@NOTE:@ The Refer-To resource is accessible in the incoming <%= my_lib_link_to "incomingRequest" %> @refer_to@ <%= my_lib_link_to "uri" %> attribute.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received REFER request.",
+  "accept()" => "Consent approval @Method@ to be executed if the REFER is accepted. This generates an outgoing #{my_lib_link_to "session"} to the resource identified by the Refer-To URI.",
+  "reject()" => "Consent denial @Method@ to be executed if the REFER is rejected.",
+}) %>
+
+h4. Event @data.accept()@ parameters
+
+<%= my_lib_api_parameters({
+  "newRTCSession(session)" => "Optional callback @Function@ to be executed on behalf of #{my_lib_link_to "ua/#event_newRTCSession"} @newRTCSession@ event for the new outgoing @RTCSession@. If this @function@ is not defined, the former event will be emitted.",
+  "options" => "Optional @Object@ providing the options for the outgoing #{my_lib_link_to "session"}. The semantic of this parameter corresponds to the optional parameter for #{my_lib_link_to "ua/#call"} @call@ method.",
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+This method does not require any parameter.
+
+
+
+h3(#event_replaces). replaces
+
+Fired when an out of dialog INVITE is received pointing to this @RTCSession@ through the <%= link_to "Replaces", "http://tools.ietf.org/html/rfc3891" %> header field.
+
+Granting approval makes the current <%= my_lib_link_to "session" %> terminate when the new one is established.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received INVITE request.",
+  "accept()" => "Consent approval @Method@ to be executed if the INVITE is accepted. An incoming #{my_lib_link_to "session"} will be generated.",
+  "reject()" => "Consent denial @Method@ to be executed if the INVITE is rejected.",
+}) %>
+
+h4. Event @data.accept()@ parameters
+
+<%= my_lib_api_parameters({
+  "newRTCSession(session)" => "Optional callback @Function@ to be executed on behalf of #{my_lib_link_to "ua/#event_newRTCSession"} @newRTCSession@ event for the new incoming @RTCSession@. If this @function@ is not defined, the former event will be emitted.",
+}) %>
+
+h4. Event @data.reject()@ parameters
+
+This method does not require any parameter.
+
+
+
+h3(#event_sdp). sdp
+
+Fired before passing a remote SDP to the RTC engine, and before sending out a local SDP.
+This event provides the mechanism to modify incoming and outgoing SDP.
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "originator" => "@String@ indicating whether the SDP is locally generated or was remotely received. Possible values are @local@ or @remote@ respectively.",
+  "type" => "@String@ indicating whether the SDP is an @offer@ or an @answer@.",
+  "sdp" => "@String@ representing the SDP. Modifications must be done directly on this parameter."
+}) %>
+
+
+h3(#event_icecandidate). icecandidate
+
+Fired for each gathered local ICE candidate while requesting RTCPeerConnection for the local description.
+This event provides the mechanism to stop waiting for more ICE candidates to be gathered so that the local description can be sent out (as an SDP offer or answer) before the whole ICE gathering process finishes.
+
+NOTE: See "RTCIceCandidate"://www.w3.org/TR/webrtc/#rtcicecandidate-interface specification for detailed info on the event data type *candidate*
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "candidate" => "@RTCIceCandidate@ instance as described in the W3C specification.",
+  "ready" => "@Function@ to be executed by the event callback if *candidate* is the last one to be gathered prior to retrieve the local description."
+}) %>
+
+
+h3(#event_getusermediafailed). getusermediafailed
+
+Fired when an internal call to @getUserMedia()@ fails. It provides the @DOMError@ as argument.
+
+
+h3(#event_peerconnection_createofferfailed). peerconnection:createofferfailed
+
+Fired when an internal call to @createOffer()@ fails. It provides the @DOMError@ as argument.
+
+
+h3(#event_peerconnection_createanswerfailed). peerconnection:createanswerfailed
+
+Fired when an internal call to @createAnswer()@ fails. It provides the @DOMError@ as argument.
+
+
+h3(#event_peerconnection_setlocaldescriptionfailed). peerconnection:setlocaldescriptionfailed
+
+Fired when an internal call to @setLocalDescription()@ fails. It provides the @DOMError@ as argument.
+
+
+h3(#event_peerconnection_setremotedescriptionfailed). peerconnection:setremotedescriptionfailed
+
+Fired when an internal call to @setRemoteDescription()@ fails. It provides the @DOMError@ as argument.

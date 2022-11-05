@@ -1,0 +1,58 @@
+---
+title: JsSIP.Registrator
+link_text: "@JsSIP.Registrator@"
+version: "3.10.x"
+---
+
+h1. Class @JsSIP.Registrator@
+
+The class @JsSIP.Registrator@ manages the UA reigstration procedures.
+
+
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "setExtraHeaders()", "#method_setExtraHeaders" %>
+** <%= link_to "setExtraContactParams()", "#method_setExtraContactParams" %>
+
+
+
+h2(#section_methods). Instance Methods
+
+
+
+h3(#method_setExtraHeaders). <%= my_lib_api_method 'setExtraHeaders(extraHeaders)' %>
+
+Append custom headers to every REGISTER / un-REGISTER request. They can be overriden at any time.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "extraHeaders" => "@Array@ of @Strings@ with extra SIP headers to be included in every REGISTER request. Set it to @null@ to remove them."
+}) %>
+
+CODE_BEGIN "javascript"
+ua.registrator.setExtraHeaders([
+  'X-Foo: bar'
+]);
+CODE_END
+
+
+h3(#method_setExtraContactParams). <%= my_lib_api_method 'setExtraContactParams(extraContactParams)' %>
+
+Append custom header params into the Contact header of every REGISTER / un-REGISTER request. They can be overriden at any time.
+
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "extraContactParams" => "@Object@ with keys representing the header param name and values represenging their param values. Set it to @null@ to remove them."
+}) %>
+
+CODE_BEGIN "javascript"
+ua.registrator.setExtraContactParams([
+  x-vendor: 'FooBar',
+  verified: true
+]);
+
+// =>  ;x-vendor=FooBar;x-verified
+CODE_END
