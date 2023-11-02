@@ -6,10 +6,6 @@ module MyFilters
 
     def run content, params={}
       output = content
-      output = output.gsub /_JSSIP_VERSION_/, @item[:version]  if @item[:version]
-      output = output.gsub /_JSSIP_LAST_VERSION_/, ::MyLib.jssip_last_version
-      output = output.gsub /_JSSIP_LAST_FULL_VERSION_/, ::MyLib.jssip_last_full_version
-      output = output.gsub /_NEW_FEATURE_/, "*NEW in #{@item[:version]}*"
     end
   end
 
