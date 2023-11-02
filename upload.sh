@@ -3,5 +3,5 @@
 set -e
 
 
-nanoc co
+nanoc compile
 nanoc deploy --target production
