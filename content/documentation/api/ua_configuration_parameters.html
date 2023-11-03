@@ -43,6 +43,7 @@ Full list of configuration parameters below:
 ** <%= link_to "ha1", "#parameter_ha1" %>
 ** <%= link_to "register", "#parameter_register" %>
 ** <%= link_to "register_expires", "#parameter_register_expires" %>
+** <%= link_to "register_from_tag_trail", "#register_from_tag_trail" %>
 ** <%= link_to "registrar_server", "#parameter_registrar_server" %>
 ** <%= link_to "use_preloaded_route", "#parameter_use_preloaded_route" %>
 ** <%= link_to "user_agent", "#parameter_user_agent" %>
@@ -252,6 +253,21 @@ Registration expiry time (in seconds) @(Integer)@. Default value is @600@.
 
 CODE_BEGIN "javascript"
 register_expires: 300
+CODE_END
+
+
+h4(#register_from_tag_trail). @register_from_tag_trail@
+
+Trail to be added to the From header tag of each REGISTER request.
+
+The trail can be a static @(String)@ or a function returning a @(String)@.
+
+CODE_BEGIN "javascript"
+register_from_tag_trail: 'foo'
+CODE_END
+
+CODE_BEGIN "javascript"
+register_from_tag_trail: () => { return generateRandomTrail(); }
 CODE_END
 
 
