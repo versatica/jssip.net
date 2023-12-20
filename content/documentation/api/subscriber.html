@@ -1,0 +1,174 @@
+---
+title: JsSIP.Subscriber
+link_text: "@JsSIP.Subscriber@"
+---
+
+h1. Class @JsSIP.Subsciber@
+
+The class @JsSIP.Subscriber@ represents a SUBSCRIBE dialog.
+The dialog send sequence of SUBSCRIBE messages and receive NOTIFY messages. 
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "state", "#attribute_state" %>
+** <%= link_to "id", "#attribute_id" %>
+** <%= link_to "data", "#attribute_data" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "subscribe()", "#method_subscribe" %>
+** <%= link_to "terminate()", "#method_terminate" %>
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "accepted", "#event_accepted" %>
+** <%= link_to "pending", "#event_pending" %>
+** <%= link_to "active", "#event_active" %>
+** <%= link_to "notify", "#event_notify" %>
+** <%= link_to "terminated", "#event_terminated" %>
+
+
+h2(#section_attributes). Instance Attributes
+
+
+h3(#attribute_state). <%= my_lib_api_method 'state' %>
+
+@number@ The subscription dialog state.
+
+h4(#subscription_dialog_states). Subscriber states
+
+|_.Constant|_.Value|_.Description|
+|@STATE_PENDING@|0|Received NOTIFY with Subscription-State: pending|
+|@STATE_ACTIVE@|1|Recevied NOTIFY with Subscription-State: active|
+|@STATE_TERMINATED@|2|Received NOTIFY with Subscription-State: terminated|
+|@STATE_INIT@|3|This is state after creation.|
+|@STATE_NOTIFY_WAIT@|4|This is the state after sending the initial SUBSCRIBE|
+
+
+h3(#attribute_id). <%= my_lib_api_method 'id' %>
+
+The Dialog id structure {@call_id@, @local_tag@, @remote_tag@} associated to this session. 
+
+
+h3(#attribute_data). <%= my_lib_api_method 'data' %>
+
+Custom session empty @Object@ for application usage. The developer can add here custom attribute/value pairs.
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_subscribe). <%= my_lib_api_method 'subscribe(body)' %>
+
+Send the initial (non-fetch)  and subsequent subscribe.
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "body" => "Optional @String@ String representing the body of the SUBSCRIBE."
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+subscriber.subscribe('Hello');
+
+CODE_END
+
+h3(#method_terminate). <%= my_lib_api_method 'terminate(body)' %>
+
+Send un-subscribe or fetch-subscribe (with Expires: 0).
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "body" => "Optional @String@ String representing the body of the SUBSCRIBE."
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+subscriber.terminate();
+
+CODE_END
+
+h2(#section_events). Events
+
+@JsSIP.Subsciber@ class defines a series of events. Each of them allow callback functions registration in order to let the user execute a function for each given stimulus.
+
+
+h3(#event_accepted). @accepted@
+
+Fired once when initial SUBSCRIBE OK received.
+Next after initial SUBSCRIBE according specification can be send only after the event
+
+Note: If you send initial SUBSCRIBE and immediately next SUBSCRIBE.
+the next subscribe will be enqueued and send automatically after the event.
+
+h3(#event_pending). @pending@
+
+Fired once when receive NOTIFY with Subscription-State: pending.
+
+h3(#event_active). @active@
+
+Fired once when receive NOTIFY with Subscription-State: active.
+
+h3(#event_notify). @notify@
+
+Fired when receive NOTIFY
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "isFinal" => "@Boolean@ If receive NOTIFY with Subscription-State: terminated.",
+  "notify" => "#{my_lib_link_to "incomingRequest"} instance representing the incoming NOTIFY SIP message.",
+  "body" => "String representing the SIP message body",
+  "contentType" => "@String@ representing the SIP NOTIFY message Content-Type header field value."
+}) %>
+
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+subscriber.on('notify', function(isFinal, notify, body, contentType)
+{
+    console.log('received NOTIFY', isFinal, body);
+});
+
+CODE_END
+
+
+
+h3(#event_terminated). @terminated@
+
+Fired once when receive NOTIFY with Subscription-State: terminated.
+
+h4. Parameters
+(terminationCode, reason, retryAfter)
+<%= my_lib_api_parameters({
+  "terminatedCode" => "@Number@ terminated code. See below.",
+  "reason" => "@String@ Value of optional NOTIFY Subscription-State: terminated parameter @reason@",
+  "retryAfter" => "@Number@ Value of optional NOTIFY Subscription-State: terminated parameter @retry-after@",
+}) %>
+
+h4(#subscription_dialog_termination_codes). Subscriber termination codes
+
+|_.Constant|_.Value|_.Description|
+|@SUBSCRIBE_RESPONSE_TIMEOUT@|0|SUBSCRIBE transaction response timeout|
+|@SUBSCRIBE_TRANSPORT_ERROR@|1|SUBSCRIBE transaction transport error|
+|@SUBSCRIBE_NON_OK_RESPONSE@|2|SUBSCRIBE transaction response code >= 300|
+|@SUBSCRIBE_BAD_OK_RESPONSE@|3|Error during dialog creation using received OK response|
+|@SUBSCRIBE_FAILED_AUTHENTICATION@|4|SUBSCRIBE authentication failed|
+|@UNSUBSCRIBE_TIMEOUT@|5|Missed response to sent SUBSCRIBE with Exprires: 0|
+|@RECEIVE_FINAL_NOTIFY@|6|Received NOTIFY with Subscription-State: terminated|
+|@RECEIVE_BAD_NOTIFY@|7|Received NOTIFY without mandatory Subscription-State or Event headers|
+
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+subscriber.on('terminated', function(terminationCode, reason, retryAfter){
+    if( terminationCode === subscriber.C.RECEIVE_FINAL_NOTIFY)
+    {
+        console.log(`receive final NOTIFY. reason="${reason}" retry-after=${retryAfter}`);
+    }
+});
+CODE_END

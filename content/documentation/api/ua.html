@@ -22,6 +22,8 @@ JsSIP SIP User Agent class.
 ** <%= link_to "isConnected()", "#method_isConnected" %>
 ** <%= link_to "get()", "#method_get" %>
 ** <%= link_to "set()", "#method_set" %>
+** <%= link_to "subscribe()", "#method_subscribe" %>
+** <%= link_to "notify()", "#method_notify" %>
 * <%= link_to "Events", "#section_events" %>
 ** <%= link_to "connecting", "#event_connecting" %>
 ** <%= link_to "connected", "#event_connected" %>
@@ -34,6 +36,7 @@ JsSIP SIP User Agent class.
 ** <%= link_to "newMessage", "#event_newMessage" %>
 ** <%= link_to "newOptions", "#event_newOptions" %>
 ** <%= link_to "sipEvent", "#event_sipEvent" %>
+** <%= link_to "newSubscribe", "#event_newSubscribe" %>
 
 
 
@@ -303,7 +306,115 @@ Returns @true@ if the modifitation could be done.
   "value" => "New value."
 }) %>
 
+h3(#method_subscribe). <%= my_lib_api_method 'subscribe(target, eventName, accept, options)' %>
 
+Create subscriber. <%= my_lib_link_to "subscriber" %> representing the subscriber dialog. 
+See subscriber definition in RFC 3265 3.1
+
+Returns @Object@ 
+
+<%= my_lib_api_parameters({
+  "target" => "Destination of the request. @String@ representing a destination username or a complete SIP URI, or a #{my_lib_link_to "uri"} instance.",
+  "eventName" => "@String@ representing the SUBSCRIBE event name.",
+  "accept" => "@String@ representing value of Accept header",
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "expires" => "Optional @Number@ (in seconds) value. Default 900.",
+  "contentType" => "@String@ representing the content-type of the SUBSCRIBE body.",
+  "allowEvents" => "Optional @String@ representing Allow-Events header value. See RFC 3265 3.3.7",
+  "params" => "@Object@ If set will have priority over ua configuration parameters. Can be used: to_uri, to_display_name, from_uri, from_display_name, cseq.",
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each SUBSCRIBE request.",
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+var target = 'alice';
+var eventName = 'foo';
+var accept = 'application/json, plain/text';
+var expires = 600; // in seconds
+var contentType = 'application/json'
+var params = null;
+
+/* 
+   Params are optional and are used if domain or from-user differ from those used in REGISTER.
+
+   var params = {
+    to_uri: new JsSIP.URI('sip', 'alice', 'example.com'),
+    to_display_name: null,
+    from_uri: new JsSIP.URI('sip', 'bob', 'example.com'),
+    from_display_name: null,
+}
+*/
+
+var subscriber;
+
+try {
+    subscriber = ua.subscribe(
+        target,
+        eventName,
+        accept, {
+        expires,
+        contentType,
+        params
+    });
+} catch (e) {
+    console.log('Error: cannot create subscriber', e);
+}
+
+CODE_END
+
+h3(#method_notify). <%= my_lib_api_method 'notify(subscribe, contentType, options)' %>
+
+Create notifier. <%= my_lib_link_to "notifier" %> representing the notifier dialog. 
+See notifier definition in RFC 3265 3.2
+
+Returns @Object@ 
+
+<%= my_lib_api_parameters({
+  "subscribe" => "#{my_lib_link_to "incomingRequest"} instance of the received SUBSCRIBE request.",
+  "contentType" => "@String@ representing the content-type of the NOTIFY body.",
+  "options" => "Optional @Object@ with extra parameters (see below)."
+}) %>
+
+h4. Fields in @options@ Object
+
+<%= my_lib_api_parameters({
+  "penging" => "Optional @Boolean@ Set initial dialog state as @pending@. Default value is @false@",
+  "allowEvents" => "Optional @String@ representing Allow-Events header value. See RFC 3265 3.3.7",
+  "extraHeaders" => "Optional @Array@ of @Strings@ with extra SIP headers for each NOTIFY request.",
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+
+ua.on('newSubscribe', (e) => {
+    var subscribe = e.request;
+    let event = subscribe.parseHeader('event');
+    if (event !== 'foo') { // Check that we understand the event.
+        console.log(`Received SUBSCRIBE with unsupported event ${event}`);
+        subscribe.reply(489); // "Bad Event"
+        return; 
+    }
+
+    var contentType = 'application/json';
+    var pending = true;
+    var notifier;
+
+    try {
+        notifer = ua.notify(subscribe, contentType, { pending });
+    } catch(e){
+        console.log('Error: cannot create notifier', e);
+    }
+});
+
+CODE_END
 
 h2(#section_events). Events
 
@@ -483,6 +594,27 @@ h4. Event @data@ fields
 <%= my_lib_api_parameters({
   "event" => "@Event@ instance. See below.",
   "request" => "#{my_lib_link_to "incomingRequest"} instance of the received NOTIFY request."
+}) %>
+
+
+h4. @event@ parameter
+
+<%= my_lib_api_parameters({
+  "event" => "'event-type' defined in the Event header field.",
+  "params" => "@Object@ containing the parameters received in the Event header field."
+}) %>
+
+
+h3(#event_newSubscribe). newSubscribe
+
+Fired for an incoming out of dialog SUBSCRIBE request.
+
+
+h4. Event @data@ fields
+
+<%= my_lib_api_parameters({
+  "event" => "@Event@ instance. See below.",
+  "request" => "#{my_lib_link_to "incomingRequest"} instance of the received SUBSCRIBE request."
 }) %>
 
 
