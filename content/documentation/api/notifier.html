@@ -1,0 +1,157 @@
+---
+title: JsSIP.Notifier
+link_text: "@JsSIP.Notifier@"
+---
+
+h1. Class @JsSIP.Notifier@
+
+The class @JsSIP.Notifier@ represents a NOTIFY dialog. 
+The dialog receive sequence of SUBSCRIBE messages and send NOTIFY messages.
+
+* <%= link_to "Instance Attributes", "#section_attributes" %>
+** <%= link_to "state", "#attribute_state" %>
+** <%= link_to "id", "#attribute_id" %>
+** <%= link_to "data", "#attribute_data" %>
+* <%= link_to "Instance Methods", "#section_methods" %>
+** <%= link_to "start()", "#method_start" %>
+** <%= link_to "setActiveState()", "#method_setActiveState" %>
+** <%= link_to "notify()", "#method_notify" %>
+** <%= link_to "terminate()", "#method_terminate" %>
+* <%= link_to "Events", "#section_events" %>
+** <%= link_to "subscribe", "#event_subscribe" %>
+** <%= link_to "terminated", "#event_terminated" %>
+
+h2(#section_attributes). Instance Attributes
+
+h3(#attribute_state). <%= my_lib_api_method 'state' %>
+
+@number@ The notifier dialog state.
+
+h4(#notifier_dialog_states). Notifier states
+
+|_.Constant|_.Value|_.Description|
+|@STATE_PENDING@|0|Send NOTIFY with Subscription-State: pending|
+|@STATE_ACTIVE@|1|Send NOTIFY with Subscription-State: active|
+|@STATE_TERMINATED@|2|Send NOTIFY with Subscription-State: terminated|
+
+h3(#attribute_id). <%= my_lib_api_method 'id' %>
+
+The Dialog id structure {@call_id@, @local_tag@, @remote_tag@} associated to this session. 
+
+
+h3(#attribute_data). <%= my_lib_api_method 'data' %>
+
+Custom session empty @Object@ for application usage. The developer can add here custom attribute/value pairs.
+
+h2(#section_methods). Instance Methods
+
+
+h3(#method_start). <%= my_lib_api_method 'start()' %>
+
+Please call after creating the Notifier instance and setting the event handlers.
+
+h3(#method_setActiveState). <%= my_lib_api_method 'setActiveState()' %>
+
+Switch pending dialog state to active.
+
+h3(#method_notify). <%= my_lib_api_method 'notify(body)' %>
+
+Send the initial and subsequent notify request.
+
+<%= my_lib_api_parameters({
+    "body" => "Optional @String@ String representing the body of the NOTIFY."
+  }) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+  
+  let body = JSON.stringify({ temperature: 18, precipitation: 6, wind: 12 });
+  notifier.notify(body);
+  
+CODE_END
+
+h3(#method_terminate). <%= my_lib_api_method 'terminate(body, reason,retryAfter)' %>
+
+Terminate. (Send the final NOTIFY request).
+
+<%= my_lib_api_parameters({
+    "body" => "Optional @String@ String representing the body of the NOTIFY.",
+    "reason" => "Optional @String@ parameter of header Subscription-State",
+    "retryAfter" => "Optional @Number@ parameter of header Subsription-State"
+  }) %>
+
+h2(#section_events). Events
+
+@JsSIP.Notifier@ class defines a series of events. Each of them allow callback functions registration in order to let the user execute a function for each given stimulus.
+
+h3(#event_subscribe). @subscribe@
+
+Fired when receive SUBSCRIBE (includes initial SUBSCRIBE)
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "isUnsubscribe" => "@Boolean@ If receive SUBSCRIBE with Expires value 0.",
+  "subscribe" => "#{my_lib_link_to "incomingRequest"} instance representing the incoming SUBSCRIBE SIP message.",
+  "body" => "String representing the SIP message body",
+  "contentType" => "@String@ representing the SIP SUBSCRIBE message Content-Type header field value."
+}) %>
+
+h4. Example
+
+CODE_BEGIN "javascript"
+  
+notifier.on('subscribe', function(isUnsubscribe, subscribe, body, contentType)
+{
+    if (isUnsubscribe) 
+    {
+        notifier.terminate();
+    } 
+    else 
+    {
+        notifier.notify({ temperature: 14 });
+    }
+});
+
+CODE_END
+
+h3(#event_terminated). @terminated@
+
+Fired when Notifier dialog is terminated.
+
+h4. Parameters
+
+<%= my_lib_api_parameters({
+  "terminationCode" => "@Number@ Termination code. See below.",
+  "sendFinalNotify" => "@Boolean@ If need send final NOTIFY. @true@ only for case when subscription is expires"
+}) %>
+
+
+h4(#subscription_dialog_termination_codes). Subscriber termination codes
+
+|_.Constant|_.Value|_.Description|
+|@NOTIFY_RESPONSE_TIMEOUT@|0|NOTIFY transaction response timeout.|
+|@NOTIFY_TRANSPORT_ERROR@|1|NOTIFY transaction transport error.|
+|@NOTIFY_NON_OK_RESPONSE@|2|Receive error response code.|
+|@NOTIFY_FAILED_AUTHENTICATION@|3|NOTIFY Authentication failure.|
+|@SEND_FINAL_NOTIFY@|4|Send NOTIFY with Subscription-State: terminated.|
+|@RECEIVE_UNSUBSCRIBE@|5|Receive SUBSCRIBE with Expires: 0|
+|@SUBSCRIPTION_EXPIRED@|6|Subscription is expired.|
+
+h4. Example
+
+CODE_BEGIN "javascript"
+  
+notifier.on('terminated', function(terminationCode, sendFinalNotify)
+{
+    console.log('notifier: fired terminated event')
+    if (sendFinalNotify) 
+    {
+        // Can be with or without body.
+        // reason must be "timeout" for the case.
+        notifier.terminate(null, "timeout");
+    } 
+});
+
+CODE_END
