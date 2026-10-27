@@ -62,3 +62,10 @@ CODE_END
 Each file in the JsSIP source tree provides a different debug identificator (all of them starting with "JsSIP:") which matches the filename and its relative path.
 
 For example, to enable debug for DTMF (whose class is defined in @src/RTCSession/DTMF.js@) add @"JsSIP:RTCSession:DTMF"@ to your @DEBUG@ variable (Node) or pass it to the @JsSIP.debug.enable()@ method (browser). Use @"JsSIP:RTCSession*"@ to enable debug for the @JsSIP.RTCSession@ class and all its subclasses.
+
+
+h2. Media debugging
+
+JsSIP's debug output covers SIP signaling. Media (ICE, DTLS, packet loss, jitter) lives in the session's @RTCPeerConnection@, available as @session.connection@.
+
+To inspect it for a single call, open @chrome://webrtc-internals@ in Chrome (@about:webrtc@ in Firefox). To record it for every call, "rtcstats-js":https://rtcstats.com/open-source is an open-source library that wraps @RTCPeerConnection@ and records periodic @getStats()@ samples along with peer connection events.
